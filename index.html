@@ -3,1323 +3,920 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QEO CARD - Professional Digital Business Card Creator & Generator</title>
-    <meta name="description" content="Create stunning, interactive digital business cards with live dual-view preview. Professional templates, QR codes, vCard export, and responsive design. Best business card generator online.">
-    <meta name="keywords" content="digital business card, business card creator, professional card generator, QR code business card, vCard generator, interactive business cards, modern card design, dual-view preview, responsive templates">
+    <title>QEO CARD - Professional Digital Business Card Creator | Modern vCard Generator</title>
+    <meta name="description" content="Create stunning professional digital business cards with dual-view preview. Modern vCard generator with QR codes, high-quality exports, and responsive design.">
+    <meta name="keywords" content="digital business card, vcard generator, professional business card, QR code business card, modern business card design, dual view business card, interactive business card creator">
     <meta name="author" content="QEO CARD">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="QEO CARD - Professional Digital Business Card Creator">
-    <meta property="og:description" content="Create stunning, interactive digital business cards with live dual-view preview and professional templates.">
+    <meta property="og:description" content="Design and share stunning, interactive digital business cards with live dual-view preview of front and back.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630/6366f1/ffffff?text=QEO+CARD">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="QEO CARD - Professional Digital Business Card Creator">
-    <meta name="twitter:description" content="Create stunning, interactive digital business cards with live dual-view preview and professional templates.">
-    
+    <link rel="canonical" href="https://qeocard.com">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="canonical" href="https://yourwebsite.com">
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Libraries -->
+    <!-- Enhanced Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
-        /* === BASE & UTILITIES === */
+        /* === ENHANCED BASE & UTILITIES === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         :root {
-            /* Colors */
-            --primary-purple: #6366f1;
-            --secondary-green: #10b981;
-            --accent-blue: #3b82f6;
-            --accent-orange: #f59e0b;
-            --dark-bg: #0a0a0a;
-            --dark-card: #1a1a1a;
-            --dark-secondary: #2d2d2d;
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
-            --text-dark-gray: #64748b;
-            --border-light: rgba(255, 255, 255, 0.1);
-            --border-lighter: rgba(255, 255, 255, 0.05);
-            
-            /* Gradients */
+            --primary-purple: #6366f1; --secondary-green: #10b981; --accent-blue: #3b82f6;
+            --dark-bg: #0a0a0a; --dark-card: #1a1a1a; --dark-secondary: #2a2a2a;
+            --text-light: #f8fafc; --text-gray: #94a3b8; --text-muted: #64748b;
+            --border-color: rgba(255, 255, 255, 0.1); --hover-bg: rgba(255, 255, 255, 0.05);
             --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            --gradient-secondary: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            --gradient-hero: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.1) 50%, transparent 80%);
-            
-            /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.3);
-            
-            /* Border Radius */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
-            
-            /* Transitions */
-            --transition-fast: all 0.2s ease;
-            --transition-smooth: all 0.3s ease;
-            --transition-slow: all 0.5s ease;
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-hover: 0 35px 80px -15px rgba(99, 102, 241, 0.3);
         }
         
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-            font-size: 16px;
+            background: var(--dark-bg); color: var(--text-light);
+            line-height: 1.6; overflow-x: hidden; font-size: 16px;
         }
 
-        /* === ANIMATIONS === */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* === ENHANCED HEADER === */
+        .header { 
+            position: fixed; top: 0; width: 100%; 
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); 
+            border-bottom: 1px solid var(--border-color); z-index: 1000; 
+            transition: all 0.3s ease;
         }
-        
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        .header.scrolled { background: rgba(10, 10, 10, 0.98); }
+        .nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 1rem 2rem; max-width: 1400px; margin: 0 auto; 
         }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        .logo { 
+            display: flex; align-items: center; gap: 0.75rem; 
+            font-size: 1.75rem; font-weight: 800; color: var(--text-light); 
+            text-decoration: none; transition: transform 0.3s ease;
         }
+        .logo:hover { transform: scale(1.02); }
+        .logo img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
 
-        /* === HEADER & NAVIGATION === */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-light);
-            z-index: 1000;
-            transition: var(--transition-smooth);
+        /* === ENHANCED HERO === */
+        .hero { 
+            padding: 10rem 2rem 6rem; text-align: center; 
+            background: 
+                radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            position: relative; overflow: hidden;
         }
-        
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: var(--transition-smooth);
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
-        }
-        
-        .logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: var(--shadow-md);
-        }
-
-        /* === HERO SECTION === */
-        .hero {
-            padding: 10rem 2rem 6rem;
-            text-align: center;
-            background: var(--gradient-hero);
-            position: relative;
-            overflow: hidden;
-        }
-        
         .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(99, 102, 241, 0.05) 50%, transparent 70%);
-            animation: shimmer 3s infinite;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%236366f1" stop-opacity="0.1"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><circle cx="200" cy="200" r="300" fill="url(%23a)"/><circle cx="800" cy="800" r="400" fill="url(%23a)"/></svg>') center/cover;
+            pointer-events: none; opacity: 0.3;
         }
-        
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            animation: fadeInUp 1s ease;
+        .hero-content { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero h1 { 
+            font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; 
+            margin-bottom: 2rem; line-height: 1.1;
+            background: var(--gradient-primary); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            background-clip: text; 
         }
-        
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
+        .hero p { 
+            font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--text-gray); 
+            margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;
         }
-        
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-            color: var(--text-gray);
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-primary { 
+            background: var(--gradient-primary); color: white; 
+            padding: 1.25rem 2.5rem; border: none; border-radius: 16px; 
+            font-size: 1.1rem; font-weight: 700; cursor: pointer; 
+            transition: all 0.4s ease; text-decoration: none; display: inline-flex;
+            align-items: center; gap: 0.5rem; position: relative; overflow: hidden;
         }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        .btn-primary:hover { 
+            transform: translateY(-4px) scale(1.02); 
+            box-shadow: var(--shadow-hover); 
         }
-
-        /* === BUTTONS === */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: var(--radius-md);
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+        .btn-primary::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: var(--transition-smooth);
+            transition: left 0.5s; 
         }
-        
-        .btn:hover::before {
-            left: 100%;
+        .btn-primary:hover::before { left: 100%; }
+
+        /* === ENHANCED CREATOR SECTION === */
+        .creator-section { padding: 6rem 2rem; max-width: 1600px; margin: 0 auto; }
+        .section-title { 
+            text-align: center; font-size: clamp(2.5rem, 4vw, 3.5rem); 
+            font-weight: 800; margin-bottom: 4rem; 
+            background: var(--gradient-primary); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            background-clip: text; 
         }
-        
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--border-light);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--dark-card);
-            border-color: var(--primary-purple);
+        .creator-container { 
+            display: grid; grid-template-columns: 1fr 2fr; 
+            gap: 4rem; align-items: start; 
         }
 
-        /* === FEATURES SECTION === */
-        .features-section {
-            padding: 6rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
+        /* === ENHANCED FORM === */
+        .form-section { 
+            background: var(--dark-card); border-radius: 24px; 
+            padding: 0.5rem; border: 1px solid var(--border-color); 
+            box-shadow: var(--shadow-card); position: sticky; top: 120px;
+            max-height: calc(100vh - 140px); overflow-y: auto;
         }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
+        .form-section::-webkit-scrollbar { width: 6px; }
+        .form-section::-webkit-scrollbar-track { background: var(--dark-secondary); border-radius: 3px; }
+        .form-section::-webkit-scrollbar-thumb { background: var(--primary-purple); border-radius: 3px; }
+
+        .accordion-item { border-bottom: 1px solid var(--border-color); }
+        .accordion-item:last-child { border-bottom: none; }
+        .accordion-header { 
+            padding: 1.5rem; cursor: pointer; 
+            display: flex; justify-content: space-between; align-items: center; 
+            font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease;
         }
-        
-        .feature-card {
-            background: var(--dark-card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            text-align: center;
-            transition: var(--transition-smooth);
-            animation: fadeInScale 0.6s ease;
+        .accordion-header:hover { background: var(--hover-bg); }
+        .accordion-header::after { 
+            content: '▼'; font-size: 0.9rem; 
+            transition: transform 0.4s ease; color: var(--primary-purple); 
         }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary-purple);
-        }
-        
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-primary);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin: 0 auto 1.5rem;
+        .accordion-item.active .accordion-header::after { transform: rotate(180deg); }
+        .accordion-content { 
+            max-height: 0; overflow: hidden; 
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            padding: 0 1.5rem; 
         }
 
-        /* === CREATOR SECTION === */
-        .creator-section {
-            padding: 6rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
+        .form-group { margin-bottom: 2rem; }
+        .form-group label { 
+            display: block; margin-bottom: 0.75rem; 
+            font-weight: 600; color: var(--text-light); font-size: 0.95rem;
         }
-        
-        .section-title {
-            text-align: center;
-            font-size: clamp(2.5rem, 4vw, 3.5rem);
-            font-weight: 800;
-            margin-bottom: 3rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .form-control { 
+            width: 100%; padding: 1rem; 
+            background: var(--dark-secondary); 
+            border: 2px solid var(--border-color); 
+            border-radius: 12px; color: var(--text-light); 
+            font-size: 1rem; transition: all 0.3s ease;
+            font-family: inherit;
         }
+        .form-control:focus { 
+            outline: none; border-color: var(--primary-purple); 
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+        .form-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .form-row > .form-group { flex: 1; min-width: 200px; }
         
-        .creator-container {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 4rem;
-            align-items: start;
+        .radio-group { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .radio-group label { 
+            display: inline-flex; align-items: center; 
+            margin: 0; padding: 0.75rem 1.25rem; 
+            background: var(--dark-secondary); border-radius: 8px; 
+            cursor: pointer; transition: all 0.3s ease; font-weight: 500;
+        }
+        .radio-group input[type="radio"] { 
+            margin-right: 0.5rem; accent-color: var(--primary-purple); 
+        }
+        .radio-group label:hover { background: var(--hover-bg); }
+
+        /* === ENHANCED COLOR TEMPLATES === */
+        .template-section { margin-bottom: 2.5rem; }
+        .template-subtitle { 
+            margin: 2rem 0 1rem 0; font-weight: 700; 
+            color: var(--text-light); font-size: 1.1rem;
+        }
+        .template-sub-subtitle { 
+            margin: 1.5rem 0 1rem 0; font-weight: 600; 
+            color: var(--text-gray); font-size: 0.95rem;
+        }
+        .color-templates-grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); 
+            gap: 1rem; margin-bottom: 1.5rem;
+        }
+        .color-template { 
+            height: 50px; border-radius: 12px; cursor: pointer; 
+            border: 3px solid transparent; transition: all 0.3s ease; 
+            position: relative; overflow: hidden;
+        }
+        .color-template:hover { transform: scale(1.05); }
+        .color-template.active { 
+            border-color: var(--primary-purple); transform: scale(1.08); 
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        .color-template::after {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); width: 20px; height: 20px;
+            background: rgba(255,255,255,0.9); border-radius: 50%;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .color-template.active::after { opacity: 1; }
+
+        /* Front Card Color Templates */
+        .front-solid-1 { background: #1e293b; }
+        .front-solid-2 { background: #374151; }
+        .front-solid-3 { background: #1f2937; }
+        .front-solid-4 { background: #111827; }
+        .front-solid-5 { background: #0f172a; }
+        .front-solid-6 { background: #18181b; }
+        .front-solid-7 { background: #27272a; }
+
+        /* Creative Blended Gradients for Front Card */
+        .front-gradient-1 { 
+            background: 
+                radial-gradient(circle at 20% 50%, #667eea 20%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #764ba2 20%, transparent 50%),
+                radial-gradient(circle at 40% 80%, #8b5cf6 20%, transparent 50%),
+                linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .front-gradient-2 { 
+            background: 
+                conic-gradient(from 180deg at 50% 50%, #22c55e 0deg, #ef4444 120deg, #3b82f6 240deg, #22c55e 360deg),
+                radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.3) 100%);
+        }
+        .front-gradient-3 { 
+            background: 
+                linear-gradient(45deg, #ff6b6b 0%, transparent 70%),
+                linear-gradient(135deg, transparent 30%, #4ecdc4 100%),
+                linear-gradient(225deg, #45b7d1 0%, #f9ca24 100%);
+        }
+        .front-gradient-4 { 
+            background: 
+                radial-gradient(ellipse at top left, #10b981 0%, transparent 60%),
+                radial-gradient(ellipse at bottom right, #f59e0b 0%, transparent 60%),
+                linear-gradient(135deg, #059669, #d97706);
+        }
+        .front-gradient-5 { 
+            background: 
+                conic-gradient(from 45deg at 30% 70%, #fa709a, #fee140, #6366f1, #fa709a),
+                linear-gradient(135deg, rgba(250, 112, 154, 0.8), rgba(254, 225, 64, 0.8));
+        }
+        .front-gradient-6 { 
+            background: 
+                radial-gradient(circle at 25% 25%, #ff9a9e 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #fecfef 0%, transparent 50%),
+                linear-gradient(45deg, #a8edea, #fed6e3);
+        }
+        .front-gradient-7 { 
+            background: 
+                linear-gradient(60deg, #f093fb 0%, transparent 70%),
+                linear-gradient(120deg, transparent 30%, #f5576c 100%),
+                radial-gradient(circle at center, #ff6b9d 0%, #c44569 100%);
+        }
+        .front-gradient-8 { 
+            background: 
+                conic-gradient(from 0deg at 50% 50%, #ffecd2, #fcb69f, #ff8a65, #ffecd2),
+                radial-gradient(ellipse at center, transparent 30%, rgba(255, 138, 101, 0.4) 70%);
+        }
+        .front-gradient-9 { 
+            background: 
+                radial-gradient(circle at 70% 30%, #a18cd1 0%, transparent 60%),
+                radial-gradient(circle at 30% 70%, #fbc2eb 0%, transparent 60%),
+                linear-gradient(225deg, #8b5cf6, #ec4899, #f59e0b);
+        }
+        .front-gradient-10 { 
+            background: 
+                linear-gradient(135deg, #fad0c4 0%, transparent 50%),
+                linear-gradient(45deg, transparent 50%, #ffd1ff 100%),
+                radial-gradient(ellipse at center, #ff9a9e 0%, #fecfef 100%);
+        }
+        .front-gradient-11 { 
+            background: 
+                conic-gradient(from 90deg at 40% 60%, #4facfe, #00f2fe, #43e97b, #4facfe),
+                linear-gradient(135deg, rgba(67, 233, 123, 0.7), rgba(0, 242, 254, 0.7));
+        }
+        .front-gradient-12 { 
+            background: 
+                radial-gradient(ellipse at top, #667eea 0%, transparent 70%),
+                radial-gradient(ellipse at bottom, #f093fb 0%, transparent 70%),
+                linear-gradient(45deg, #8b5cf6, #ec4899);
+        }
+        .front-gradient-13 { 
+            background: 
+                linear-gradient(45deg, #ff6b6b 25%, transparent 25%),
+                linear-gradient(135deg, #4ecdc4 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #45b7d1 75%),
+                linear-gradient(135deg, transparent 75%, #f9ca24 75%),
+                linear-gradient(135deg, #ff9ff3, #f368e0);
         }
 
-        /* === FORM STYLES === */
-        .form-section {
-            background: var(--dark-card);
-            border-radius: var(--radius-xl);
-            padding: 0.5rem;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-lg);
-            position: sticky;
-            top: 120px;
-            max-height: calc(100vh - 140px);
-            overflow-y: auto;
+        /* Back Card Color Templates */
+        .back-solid-1 { background: #1e293b; }
+        .back-solid-2 { background: #374151; }
+        .back-solid-3 { background: #1f2937; }
+        .back-solid-4 { background: #111827; }
+        .back-solid-5 { background: #0f172a; }
+        .back-solid-6 { background: #18181b; }
+        .back-solid-7 { background: #27272a; }
+
+        /* Creative Blended Gradients for Back Card */
+        .back-gradient-1 { 
+            background: 
+                radial-gradient(circle at 30% 40%, #22c55e 25%, transparent 50%),
+                radial-gradient(circle at 70% 60%, #ef4444 25%, transparent 50%),
+                linear-gradient(135deg, #059669, #dc2626, #ca8a04);
         }
-        
-        .form-section::-webkit-scrollbar {
-            width: 6px;
+        .back-gradient-2 { 
+            background: 
+                conic-gradient(from 0deg at 50% 50%, #8b5cf6, #3b82f6, #06b6d4, #8b5cf6),
+                radial-gradient(circle at center, transparent 20%, rgba(139, 92, 246, 0.6) 80%);
         }
-        
-        .form-section::-webkit-scrollbar-track {
-            background: var(--dark-secondary);
-            border-radius: 3px;
+        .back-gradient-3 { 
+            background: 
+                linear-gradient(60deg, #f59e0b 0%, transparent 60%),
+                linear-gradient(120deg, transparent 40%, #8b5cf6 100%),
+                radial-gradient(ellipse at center, #ec4899 0%, #7c3aed 100%);
         }
-        
-        .form-section::-webkit-scrollbar-thumb {
-            background: var(--primary-purple);
-            border-radius: 3px;
+        .back-gradient-4 { 
+            background: 
+                radial-gradient(ellipse at 80% 20%, #10b981 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, #3b82f6 0%, transparent 50%),
+                linear-gradient(225deg, #059669, #1d4ed8, #0891b2);
         }
-        
-        .accordion-item {
-            border-bottom: 1px solid var(--border-light);
-            transition: var(--transition-smooth);
+        .back-gradient-5 { 
+            background: 
+                conic-gradient(from 270deg at 60% 40%, #ef4444, #f59e0b, #22c55e, #ef4444),
+                linear-gradient(135deg, rgba(239, 68, 68, 0.8), rgba(34, 197, 94, 0.8));
         }
-        
-        .accordion-item:last-child {
-            border-bottom: none;
+        .back-gradient-6 { 
+            background: 
+                radial-gradient(circle at 40% 60%, #ec4899 0%, transparent 60%),
+                radial-gradient(circle at 60% 40%, #8b5cf6 0%, transparent 60%),
+                linear-gradient(45deg, #a855f7, #ec4899, #f97316);
         }
-        
-        .accordion-header {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: var(--transition-smooth);
-            user-select: none;
+        .back-gradient-7 { 
+            background: 
+                linear-gradient(45deg, #06b6d4 20%, transparent 70%),
+                linear-gradient(135deg, transparent 30%, #22c55e 80%),
+                radial-gradient(circle at center, #0891b2 0%, #16a34a 100%);
         }
-        
-        .accordion-header:hover {
-            background: var(--border-lighter);
+        .back-gradient-8 { 
+            background: 
+                conic-gradient(from 180deg at 30% 70%, #f97316, #eab308, #22c55e, #f97316),
+                radial-gradient(ellipse at center, transparent 40%, rgba(249, 115, 22, 0.5) 80%);
         }
-        
-        .accordion-header::after {
-            content: '▼';
-            font-size: 0.9rem;
-            transition: var(--transition-smooth);
-            color: var(--primary-purple);
+        .back-gradient-9 { 
+            background: 
+                radial-gradient(ellipse at 25% 75%, #8b5cf6 0%, transparent 50%),
+                radial-gradient(ellipse at 75% 25%, #06b6d4 0%, transparent 50%),
+                linear-gradient(315deg, #7c3aed, #0284c7, #059669);
         }
-        
-        .accordion-item.active .accordion-header::after {
-            transform: rotate(180deg);
+        .back-gradient-10 { 
+            background: 
+                linear-gradient(30deg, #ec4899 30%, transparent 70%),
+                linear-gradient(150deg, transparent 30%, #f59e0b 70%),
+                radial-gradient(circle at center, #db2777 0%, #d97706 100%);
         }
-        
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out;
-            padding: 0 1.5rem;
+        .back-gradient-11 { 
+            background: 
+                conic-gradient(from 60deg at 40% 40%, #3b82f6, #22c55e, #f59e0b, #3b82f6),
+                linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(245, 158, 11, 0.6));
         }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
+        .back-gradient-12 { 
+            background: 
+                radial-gradient(circle at top right, #ef4444 0%, transparent 70%),
+                radial-gradient(circle at bottom left, #8b5cf6 0%, transparent 70%),
+                linear-gradient(225deg, #dc2626, #7c3aed, #0891b2);
         }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--text-light);
-            font-size: 0.95rem;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: var(--border-lighter);
-            border: 2px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            color: var(--text-light);
-            font-size: 1rem;
-            transition: var(--transition-smooth);
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-purple);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-        
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .form-row > .form-group {
-            flex: 1;
-            min-width: 150px;
-        }
-        
-        .radio-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .radio-group label {
-            display: inline-flex;
-            align-items: center;
-            font-weight: 400;
-            cursor: pointer;
-            margin-bottom: 0;
-        }
-        
-        .radio-group input[type="radio"] {
-            margin-right: 0.5rem;
-            accent-color: var(--primary-purple);
+        .back-gradient-13 { 
+            background: 
+                linear-gradient(72deg, #22c55e 25%, transparent 25%),
+                linear-gradient(144deg, #ef4444 25%, transparent 25%),
+                linear-gradient(72deg, transparent 75%, #3b82f6 75%),
+                linear-gradient(144deg, transparent 75%, #f59e0b 75%),
+                radial-gradient(ellipse at center, #059669 0%, #dc2626 50%, #1d4ed8 100%);
         }
 
-        /* === TEMPLATE SELECTION === */
-        .template-subtitle {
-            margin: 1.5rem 0 1rem 0;
-            font-weight: 600;
-            color: var(--text-gray);
-            font-size: 1rem;
-        }
-        
-        .color-templates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .color-template {
-            height: 50px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-            background-size: 200% 200%;
-            animation: gradientShift 8s ease-in-out infinite;
-        }
-        
-        @keyframes gradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            25% {
-                background-position: 100% 50%;
-            }
-            50% {
-                background-position: 100% 100%;
-            }
-            75% {
-                background-position: 0% 100%;
-            }
-        }
-        
-        .color-template::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: inherit;
-            opacity: 0.9;
-            transition: var(--transition-smooth);
-        }
-        
-        .color-template:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-        
-        .color-template:hover::before {
-            opacity: 1;
-        }
-        
-        .color-template.active {
-            border-color: var(--text-light);
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            z-index: 10;
-        }
-        
-        .color-template.active::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 1.4rem;
-            font-weight: bold;
-            text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.6);
-            z-index: 2;
-        }
-        
-        /* Special effects for creative blend templates */
-        .color-template[data-color*="conic-gradient"] {
-            animation: rotate 12s linear infinite;
-        }
-        
-        .color-template[data-color*="radial-gradient"] {
-            animation: pulse 6s ease-in-out infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .color-template[data-color*="radial-gradient"]:hover {
-            animation-play-state: paused;
-        }
-
-        /* === PREVIEW SECTION === */
-        .preview-section {
-            animation: fadeInScale 0.8s ease;
-        }
-        
-        .preview-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        
-        .preview-card-wrapper {
-            position: relative;
-        }
-        
-        .preview-card-wrapper h4 {
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--text-gray);
-            font-weight: 600;
-            font-size: 1.1rem;
+        /* === ENHANCED DUAL PREVIEW === */
+        .preview-section { position: sticky; top: 120px; }
+        .preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+        .preview-card-wrapper { text-align: center; }
+        .preview-card-wrapper h4 { 
+            margin-bottom: 1.5rem; color: var(--text-gray); 
+            font-weight: 600; font-size: 1.1rem;
         }
         
         .business-card {
-            width: 100%;
-            aspect-ratio: 1.8;
-            border-radius: var(--radius-lg);
-            background: var(--gradient-primary);
-            padding: clamp(1rem, 5%, 2rem);
-            color: white;
-            overflow: hidden;
-            box-shadow: var(--shadow-xl);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            transition: var(--transition-smooth);
+            width: 100%; aspect-ratio: 1.75; border-radius: 20px;
+            background: var(--gradient-primary); padding: clamp(1.2rem, 5%, 2.5rem);
+            color: white; overflow: hidden; box-shadow: var(--shadow-card);
+            display: flex; flex-direction: column; justify-content: space-between;
+            position: relative; transition: all 0.3s ease; cursor: pointer;
         }
-        
-        .business-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
-        }
-        
-        .card-content {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            z-index: 2;
-            position: relative;
-        }
-        
-        .card-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-        
-        .profile-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.1);
-            flex-shrink: 0;
-            transition: var(--transition-smooth);
-        }
-        
-        .profile-image:hover {
-            transform: scale(1.1);
-        }
-        
-        .card-info h3 {
-            font-size: clamp(1rem, 4vw, 1.3rem);
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            word-break: break-word;
-        }
-        
-        .card-info .title {
-            font-size: clamp(0.8rem, 3vw, 0.95rem);
-            opacity: 0.9;
-            word-break: break-word;
-            font-weight: 500;
-        }
-        
-        .card-info .company {
-            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
-            opacity: 0.8;
-            word-break: break-word;
-        }
-        
-        .card-footer {
-            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
-            opacity: 0.9;
-            word-break: break-word;
-            line-height: 1.4;
-        }
-        
-        .card-footer > div {
-            margin-bottom: 0.25rem;
-        }
-        
-        #previewQrCodeFront {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            background: white;
-            padding: 4px;
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-sm);
+        .business-card:hover { 
+            transform: translateY(-5px) scale(1.02); 
+            box-shadow: var(--shadow-hover); 
         }
 
-        /* === CARD BACK STYLES === */
-        .card-back-content {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            text-align: center;
+        /* Enhanced Card Content */
+        .card-content { 
+            width: 100%; height: 100%; display: flex; 
+            flex-direction: column; justify-content: space-between; 
+        }
+        .card-header { 
+            display: flex; align-items: flex-start; 
+            gap: clamp(0.8rem, 3vw, 1.5rem); 
+        }
+        .profile-image { 
+            width: clamp(50px, 12vw, 70px); height: clamp(50px, 12vw, 70px); 
+            border-radius: 50%; object-fit: cover; 
+            border: 3px solid rgba(255, 255, 255, 0.4); 
+            background: rgba(255, 255, 255, 0.15); flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        .card-info h3 { 
+            font-size: clamp(1rem, 4vw, 1.4rem); font-weight: 800; 
+            margin-bottom: 0.3rem; word-break: break-word; line-height: 1.2;
+        }
+        .card-info .title { 
+            font-size: clamp(0.8rem, 3vw, 1rem); opacity: 0.95; 
+            word-break: break-word; font-weight: 500;
+        }
+        .card-footer { 
+            font-size: clamp(0.7rem, 2.5vw, 0.85rem); opacity: 0.9; 
+            word-break: break-word; line-height: 1.4;
+        }
+        .card-footer > div { margin-bottom: 0.2rem; }
+
+        /* QR Code Styling */
+        #previewQrCodeFront { 
+            position: absolute; bottom: 1.2rem; right: 1.2rem; 
+            background: white; padding: 6px; border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         
-        #previewBackLogo {
-            max-width: 60%;
-            max-height: 80px;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        /* Card Back Enhanced Content */
+        .card-back-content { 
+            width: 100%; height: 100%; display: flex; 
+            flex-direction: column; align-items: center; 
+            justify-content: center; gap: 1.5rem; text-align: center; 
         }
-        
-        #previewBackQrCode {
-            background: white;
-            padding: 8px;
-            border-radius: var(--radius-sm);
-            line-height: 0;
-            box-shadow: var(--shadow-md);
+        #previewBackLogo { 
+            max-width: 70%; max-height: 100px; object-fit: contain; 
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
         }
-        
-        #previewTagline {
-            font-size: clamp(1rem, 3vw, 1.2rem);
-            font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        #previewBackLogoCircle {
+            width: 120px; height: 120px; border-radius: 50%; 
+            object-fit: cover; border: 4px solid rgba(255,255,255,0.4);
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+        }
+        #previewBackQrCode { 
+            background: white; padding: 12px; border-radius: 12px; 
+            line-height: 0; box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        #previewTagline { 
+            font-size: clamp(1rem, 4vw, 1.3rem); font-weight: 600; 
+            line-height: 1.3; max-width: 80%;
         }
 
-        /* === CARD ACTIONS === */
-        .card-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 3rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        /* === ENHANCED ACTIONS === */
+        .card-actions { 
+            display: flex; gap: 1rem; margin-top: 3rem; 
+            justify-content: center; flex-wrap: wrap; 
+        }
+        .btn-action { 
+            background: var(--gradient-success); color: white; 
+            padding: 1rem 1.75rem; border: none; border-radius: 12px; 
+            cursor: pointer; font-weight: 700; font-size: 0.95rem;
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;
+            text-decoration: none; position: relative; overflow: hidden;
+        }
+        .btn-action:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3); 
         }
         
-        .btn-action {
-            background: var(--gradient-secondary);
-            color: white;
-            padding: 1rem 1.5rem;
-            border: none;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: var(--transition-smooth);
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
+        .export-dropdown { position: relative; display: inline-block; }
+        .export-options { 
+            display: none; position: absolute; 
+            background: var(--dark-card); min-width: 220px; 
+            box-shadow: var(--shadow-card); z-index: 1; border-radius: 12px; 
+            border: 1px solid var(--border-color); bottom: 100%; margin-bottom: 12px;
         }
-        
-        .btn-action::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: var(--transition-smooth);
+        .export-options a { 
+            color: var(--text-light); padding: 1rem 1.25rem; 
+            text-decoration: none; display: block; font-weight: 500;
+            transition: background 0.3s ease;
         }
-        
-        .btn-action:hover::before {
-            left: 100%;
-        }
-        
-        .btn-action:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .export-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .export-options {
-            display: none;
-            position: absolute;
-            background: var(--dark-card);
-            min-width: 200px;
-            box-shadow: var(--shadow-lg);
-            z-index: 1000;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-light);
-            bottom: 100%;
-            margin-bottom: 10px;
-            right: 0;
-        }
-        
-        .export-options a {
-            color: var(--text-light);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: var(--transition-fast);
-            font-size: 0.9rem;
-        }
-        
-        .export-options a:hover {
-            background: var(--border-lighter);
-            color: var(--primary-purple);
-        }
-        
-        .export-dropdown:hover .export-options {
-            display: block;
-            animation: fadeInScale 0.2s ease;
-        }
+        .export-options a:hover { background: var(--hover-bg); }
+        .export-dropdown:hover .export-options { display: block; }
 
-        /* === FOOTER === */
+        /* === ENHANCED FOOTER === */
         .footer {
-            background: var(--dark-card);
-            border-top: 1px solid var(--border-light);
-            padding: 4rem 2rem 2rem;
-            margin-top: 6rem;
+            background: var(--dark-card); border-top: 1px solid var(--border-color);
+            padding: 4rem 2rem 2rem; margin-top: 6rem;
         }
-        
         .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem; margin-bottom: 2rem;
         }
-        
         .footer-section h3 {
-            color: var(--text-light);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: 600;
+            color: var(--text-light); margin-bottom: 1rem;
+            font-size: 1.2rem; font-weight: 700;
         }
-        
-        .footer-section p,
-        .footer-section a {
-            color: var(--text-gray);
-            text-decoration: none;
-            line-height: 1.6;
-            transition: var(--transition-fast);
+        .footer-section p, .footer-section a {
+            color: var(--text-gray); text-decoration: none;
+            line-height: 1.6; transition: color 0.3s ease;
         }
-        
-        .footer-section a:hover {
-            color: var(--primary-purple);
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-        
+        .footer-section a:hover { color: var(--primary-purple); }
         .footer-bottom {
-            border-top: 1px solid var(--border-light);
-            margin-top: 2rem;
-            padding-top: 2rem;
-            text-align: center;
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-        
-        .footer-bottom a {
-            color: var(--primary-purple);
-            text-decoration: none;
+            border-top: 1px solid var(--border-color); padding-top: 2rem;
+            text-align: center; color: var(--text-muted);
         }
 
-        /* === RESPONSIVE DESIGN === */
+        /* === RESPONSIVE ENHANCEMENTS === */
         @media (max-width: 1200px) {
-            .creator-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .form-section {
-                position: relative;
-                top: 0;
-                max-height: none;
-            }
+            .creator-container { grid-template-columns: 1fr; }
+            .preview-section { position: relative; top: 0; margin-top: 3rem; }
+            .form-section { position: relative; max-height: none; }
         }
         
         @media (max-width: 768px) {
-            :root {
-                font-size: 14px;
-            }
-            
-            .nav {
-                padding: 1rem;
-            }
-            
-            .hero {
-                padding: 8rem 1rem 4rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 280px;
-                justify-content: center;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .preview-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .card-actions {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn-action {
-                width: 100%;
-                max-width: 280px;
-                justify-content: center;
-            }
-            
-            .color-templates-grid {
-                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
-            }
+            .nav { padding: 1rem; }
+            .hero { padding: 8rem 1rem 4rem; }
+            .section-title { font-size: 2rem; }
+            .preview-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .form-row { flex-direction: column; }
+            .radio-group { flex-direction: column; }
+            .color-templates-grid { grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); }
+            .card-actions { flex-direction: column; align-items: center; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
         }
-        
+
         @media (max-width: 480px) {
-            .creator-section,
-            .features-section {
-                padding: 4rem 1rem;
-            }
-            
-            .hero {
-                padding: 6rem 1rem 3rem;
-            }
-            
-            .business-card {
-                padding: 1rem;
-            }
-            
-            .profile-image {
-                width: 50px;
-                height: 50px;
-            }
+            .hero h1 { font-size: 2rem; }
+            .business-card { padding: 1rem; }
+            .btn-primary, .btn-action { padding: 0.875rem 1.5rem; }
         }
 
-        /* === LOADING STATES === */
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-            position: relative;
-        }
-        
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid var(--primary-purple);
-            border-radius: 50%;
-            border-right-color: transparent;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* === ACCESSIBILITY === */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-        
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
+        /* === LOADING & ANIMATION ENHANCEMENTS === */
+        .loading { opacity: 0.7; pointer-events: none; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* === PRINT STYLES === */
-        @media print {
-            .header,
-            .hero,
-            .footer,
-            .card-actions {
-                display: none;
-            }
-            
-            .business-card {
-                box-shadow: none;
-                border: 1px solid #000;
-            }
+        /* === ACCESSIBILITY ENHANCEMENTS === */
+        .sr-only { 
+            position: absolute; width: 1px; height: 1px; padding: 0; 
+            margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); 
+            white-space: nowrap; border: 0; 
+        }
+
+        /* Focus styles for better accessibility */
+        .form-control:focus,
+        .btn-primary:focus,
+        .btn-action:focus,
+        .color-template:focus {
+            outline: 3px solid rgba(99, 102, 241, 0.5);
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
     <div id="editorMode">
-        <header class="header">
+        <header class="header" id="header">
             <nav class="nav">
-                <a href="#" class="logo">
-                    <img src="logo.png" alt="QEO CARD Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%236366f1%22/%3E%3Ctext x=%2250%22 y=%2260%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22Arial, sans-serif%22 font-weight=%22bold%22%3EQC%3C/text%3E%3C/svg%3E'">
+                <a href="#" class="logo" aria-label="QEO CARD Home">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='50' fill='url(%23grad)'/%3E%3Ctext x='50' y='60' font-size='35' fill='white' text-anchor='middle' font-family='Inter, sans-serif' font-weight='800'%3EQC%3C/text%3E%3C/svg%3E" alt="QEO CARD Logo">
                     QEO CARD
                 </a>
             </nav>
         </header>
 
-        <main>
-            <section id="home" class="hero">
-                <div class="hero-content">
-                    <h1>Professional Digital Business Cards</h1>
-                    <p class="hero-subtitle">Create stunning, interactive business cards with live dual-view preview. Professional templates, QR codes, and instant sharing capabilities.</p>
-                    <div class="hero-buttons">
-                        <a href="#creator" class="btn btn-primary">
-                            <span>🚀</span>
-                            Start Creating Now
-                        </a>
-                        <a href="#features" class="btn btn-secondary">
-                            <span>✨</span>
-                            View Features
-                        </a>
-                    </div>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>The Ultimate Digital Business Card</h1>
+                <p>Create stunning, professional digital business cards with our advanced dual-view editor. Design both front and back layouts with high-quality exports, QR codes, and modern templates that work perfectly on any device.</p>
+                <div class="hero-buttons">
+                    <a href="#creator" class="btn-primary">
+                        <span>🚀</span>
+                        Start Creating Now
+                    </a>
                 </div>
-            </section>
+            </div>
+        </section>
+        
+        <section id="creator" class="creator-section">
+            <h2 class="section-title">Professional Card Creator</h2>
+            <div class="creator-container">
+                <div class="form-section">
+                    <form id="cardForm" onsubmit="return false;" role="form" aria-label="Business Card Creation Form">
+                        <div class="accordion-item active">
+                            <div class="accordion-header" tabindex="0" role="button" aria-expanded="true">
+                                <span>🎨 Front Card Design</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="form-group">
+                                    <label for="fullName">Full Name *</label>
+                                    <input type="text" id="fullName" class="form-control" placeholder="e.g., Sarah Johnson" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="jobTitle">Job Title</label>
+                                        <input type="text" id="jobTitle" class="form-control" placeholder="e.g., Senior Marketing Director">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company">Company</label>
+                                        <input type="text" id="company" class="form-control" placeholder="e.g., TechCorp Solutions">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileImage">Profile Image / Logo</label>
+                                    <input type="file" id="profileImage" accept="image/*" class="form-control" aria-describedby="profileImageHelp">
+                                    <small id="profileImageHelp" class="form-text">Upload JPG, PNG, or SVG (Max 5MB)</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" class="form-control" placeholder="e.g., sarah.johnson@techcorp.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-control" placeholder="e.g., +1 (555) 123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label for="website">Website</label>
+                                    <input type="url" id="website" class="form-control" placeholder="e.g., www.techcorp.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Business Address</label>
+                                    <textarea id="address" class="form-control" rows="3" placeholder="e.g., 123 Innovation Drive, Suite 100&#10;Tech City, TC 12345"></textarea>
+                                </div>
+                            </div>
+                        </div>
 
-            <section id="features" class="features-section">
-                <h2 class="section-title">Why Choose QEO CARD?</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🎨</div>
-                        <h3>Professional Templates</h3>
-                        <p>Choose from 10+ carefully designed color templates including gradients and solid colors to match your brand identity.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h3>QR Code Integration</h3>
-                        <p>Generate QR codes automatically for instant contact sharing. Place on front or back of your card.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">👁️</div>
-                        <h3>Live Dual Preview</h3>
-                        <p>See both front and back of your card update in real-time as you design. What you see is what you get.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h3>Fully Responsive</h3>
-                        <p>Perfect experience on desktop, tablet, and mobile devices. Design anywhere, anytime.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💾</div>
-                        <h3>Multiple Export Formats</h3>
-                        <p>Download as PNG, PDF, or vCard format. Compatible with all devices and contact apps.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3>Instant Generation</h3>
-                        <p>No waiting, no processing delays. Your business card is generated instantly as you type.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="creator" class="creator-section">
-                <h2 class="section-title">Design Your Business Card</h2>
-                <div class="creator-container">
-                    <div class="form-section">
-                        <form id="cardForm" onsubmit="return false;">
-                            <div class="accordion-item active">
-                                <div class="accordion-header">Front Side Design</div>
-                                <div class="accordion-content">
-                                    <div class="form-group">
-                                        <label for="fullName">Full Name *</label>
-                                        <input type="text" id="fullName" class="form-control" placeholder="e.g., John Smith" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="jobTitle">Job Title</label>
-                                            <input type="text" id="jobTitle" class="form-control" placeholder="e.g., CEO & Founder">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="company">Company</label>
-                                            <input type="text" id="company" class="form-control" placeholder="e.g., Tech Solutions Inc.">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="profileImage">Profile Image / Logo</label>
-                                        <input type="file" id="profileImage" accept="image/*" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email Address *</label>
-                                        <input type="email" id="email" class="form-control" placeholder="e.g., john@techsolutions.com" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone">Phone Number</label>
-                                        <input type="tel" id="phone" class="form-control" placeholder="e.g., +1 555 123 4567">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="website">Website</label>
-                                        <input type="url" id="website" class="form-control" placeholder="e.g., www.techsolutions.com">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <textarea id="address" class="form-control" rows="2" placeholder="e.g., 123 Business Ave, Tech City, TC 12345"></textarea>
+                        <div class="accordion-item">
+                            <div class="accordion-header" tabindex="0" role="button" aria-expanded="false">
+                                <span>🎯 Back Card Design</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="form-group">
+                                    <label>Back Card Layout Style</label>
+                                    <div class="radio-group">
+                                        <label>
+                                            <input type="radio" name="backLayout" value="logo" checked>
+                                            <span>🏢 Company Logo</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="backLayout" value="profile">
+                                            <span>👤 Profile Circle</span>
+                                        </label>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <div class="accordion-header">Back Side Design</div>
-                                <div class="accordion-content">
-                                    <div class="form-group">
-                                        <label for="backLogo">Large Logo Upload</label>
-                                        <input type="file" id="backLogo" accept="image/*" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tagline">Tagline or Slogan</label>
-                                        <input type="text" id="tagline" class="form-control" placeholder="e.g., Innovative Solutions for Tomorrow">
-                                    </div>
+                                <div class="form-group">
+                                    <label for="backLogo">Upload Logo/Image</label>
+                                    <input type="file" id="backLogo" accept="image/*" class="form-control" aria-describedby="backLogoHelp">
+                                    <small id="backLogoHelp" class="form-text">For company branding or personal photo</small>
                                 </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <div class="accordion-header">Design & Style Options</div>
-                                <div class="accordion-content">
-                                    <div class="form-group">
-                                        <label>QR Code Position</label>
-                                        <div class="radio-group">
-                                            <label><input type="radio" name="qrPosition" value="none" checked> None</label>
-                                            <label><input type="radio" name="qrPosition" value="front"> Front</label>
-                                            <label><input type="radio" name="qrPosition" value="back"> Back</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="fontFamily">Font Style</label>
-                                        <select id="fontFamily" class="form-control">
-                                            <option value="Inter, sans-serif">Inter (Modern)</option>
-                                            <option value="Poppins, sans-serif">Poppins (Friendly)</option>
-                                            <option value="Lato, sans-serif">Lato (Professional)</option>
-                                            <option value="Montserrat, sans-serif">Montserrat (Bold)</option>
-                                            <option value="Roboto, sans-serif">Roboto (Clean)</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <h4 class="template-subtitle">Professional Color Templates</h4>
-                                    
-                                    <h5 class="template-subtitle" style="margin-top:0; font-size: 0.9rem; color: var(--text-gray);">Premium Gradients</h5>
-                                    <div class="color-templates-grid">
-                                        <div class="color-template active" data-color="linear-gradient(135deg, #6366f1, #8b5cf6)" title="Purple Gradient"></div>
-                                        <div class="color-template" data-color="linear-gradient(135deg, #10b981, #059669)" title="Green Gradient"></div>
-                                        <div class="color-template" data-color="linear-gradient(135deg, #3b82f6, #1d4ed8)" title="Blue Gradient"></div>
-                                        <div class="color-template" data-color="linear-gradient(135deg, #f59e0b, #d97706)" title="Orange Gradient"></div>
-                                        <div class="color-template" data-color="linear-gradient(135deg, #ef4444, #dc2626)" title="Red Gradient"></div>
-                                    </div>
-                                    
-                                    <h5 class="template-subtitle" style="font-size: 0.9rem; color: var(--text-gray);">Vibrant Combinations</h5>
-                                    <div class="color-templates-grid">
-                                        <div class="color-template" data-color="linear-gradient(45deg, #f83600 0%, #f9d423 100%)" title="Fire Sunset"></div>
-                                        <div class="color-template" data-color="linear-gradient(to right, #43e97b 0%, #38f9d7 100%)" title="Fresh Mint"></div>
-                                        <div class="color-template" data-color="linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)" title="Cotton Candy"></div>
-                                        <div class="color-template" data-color="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" title="Deep Purple"></div>
-                                        <div class="color-template" data-color="linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)" title="Soft Pink"></div>
-                                    </div>
-                                    
-                                    <h5 class="template-subtitle" style="font-size: 0.9rem; color: var(--text-gray);">Creative Blends</h5>
-                                    <div class="color-templates-grid">
-                                        <div class="color-template" data-color="linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1)" title="Tropical Fusion"></div>
-                                        <div class="color-template" data-color="radial-gradient(circle at center, #ff416c, #ff4b2b, #ff9800)" title="Solar Flare"></div>
-                                        <div class="color-template" data-color="linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)" title="Cosmic Blend"></div>
-                                        <div class="color-template" data-color="conic-gradient(from 45deg, #ff9a9e, #fecfef, #ffecd2)" title="Pastel Wheel"></div>
-                                        <div class="color-template" data-color="linear-gradient(45deg, #56ab2f 0%, #a8edea 50%, #fed6e3 100%)" title="Nature Mix"></div>
-                                        <div class="color-template" data-color="radial-gradient(ellipse at top, #e0c3fc 0%, #9bb5ff 50%, #a8e6cf 100%)" title="Aurora Borealis"></div>
-                                        <div class="color-template" data-color="linear-gradient(60deg, #29323c 0%, #485563 50%, #2b5876 100%)" title="Steel Storm"></div>
-                                        <div class="color-template" data-color="conic-gradient(from 180deg at 50% 50%, #ff0844, #ffb199, #ff6b6b, #4ecdc4)" title="Sunset Prism"></div>
-                                    </div>
-                                    
-                                    <h5 class="template-subtitle" style="font-size: 0.9rem; color: var(--text-gray);">Advanced Gradients</h5>
-                                    <div class="color-templates-grid">
-                                        <div class="color-template" data-color="linear-gradient(145deg, #ff6b35, #f7931e, #ffd23f, #06ffa5)" title="Rainbow Burst"></div>
-                                        <div class="color-template" data-color="radial-gradient(circle at 30% 20%, #ff3cac, #562b7c, #2b86ab)" title="Galaxy Core"></div>
-                                        <div class="color-template" data-color="linear-gradient(45deg, #b721ff 0%, #21d4fd 25%, #b721ff 50%, #21d4fd 75%, #b721ff 100%)" title="Electric Wave"></div>
-                                        <div class="color-template" data-color="conic-gradient(from 270deg at 50% 50%, #ff512f, #dd2476, #ff512f)" title="Crimson Spin"></div>
-                                        <div class="color-template" data-color="linear-gradient(90deg, #74b9ff, #0984e3, #6c5ce7, #a29bfe)" title="Ocean Dreams"></div>
-                                        <div class="color-template" data-color="radial-gradient(ellipse at bottom, #00d2ff, #3a7bd5, #002973)" title="Deep Sea"></div>
-                                        <div class="color-template" data-color="linear-gradient(135deg, #667db6 0%, #0082c8 25%, #0082c8 50%, #667db6 75%, #0052d4 100%)" title="Sky Waves"></div>
-                                        <div class="color-template" data-color="conic-gradient(from 45deg at 50% 50%, #ff9472, #f2709c, #ad4e92, #905194)" title="Berry Swirl"></div>
-                                    </div>
-                                    
-                                    <h5 class="template-subtitle" style="font-size: 0.9rem; color: var(--text-gray);">Solid Professional</h5>
-                                    <div class="color-templates-grid">
-                                        <div class="color-template" data-color="#1f2937" title="Dark Gray"></div>
-                                        <div class="color-template" data-color="#374151" title="Slate Gray"></div>
-                                        <div class="color-template" data-color="#111827" title="Midnight Black"></div>
-                                        <div class="color-template" data-color="#1e40af" title="Royal Blue"></div>
-                                        <div class="color-template" data-color="#7c3aed" title="Violet"></div>
-                                    </div>
-                                    
-                                    <div class="form-group" style="margin-top: 1.5rem;">
-                                        <label for="customColor">Custom Color</label>
-                                        <input type="color" id="customColor" class="form-control" value="#6366f1">
-                                    </div>
+                                <div class="form-group">
+                                    <label for="tagline">Tagline or Slogan</label>
+                                    <input type="text" id="tagline" class="form-control" placeholder="e.g., Innovating Tomorrow's Solutions">
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <div class="preview-section">
-                        <div class="preview-grid">
-                            <div class="preview-card-wrapper">
-                                <h4>Front Side</h4>
-                                <div class="business-card" id="businessCardFront">
-                                    <div class="card-content">
-                                        <div class="card-header">
-                                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='30' fill='rgba(255,255,255,0.2)'/><text x='30' y='38' text-anchor='middle' fill='white' font-size='20'>👤</text></svg>" alt="Profile" class="profile-image" id="previewImage">
-                                            <div class="card-info">
-                                                <h3 id="previewName">John Smith</h3>
-                                                <div class="title" id="previewTitle">CEO & Founder</div>
-                                                <div class="company" id="previewCompany">Tech Solutions Inc.</div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div id="previewEmail">john@techsolutions.com</div>
-                                            <div id="previewPhone">+1 555 123 4567</div>
-                                            <div id="previewWebsite">www.techsolutions.com</div>
-                                            <div id="previewAddress" style="white-space: pre-line;">123 Business Ave, Tech City</div>
-                                        </div>
-                                        <div id="previewQrCodeFront"></div>
+                                <div class="template-section">
+                                    <h4 class="template-subtitle">🎨 Back Card Colors</h4>
+                                    <h5 class="template-sub-subtitle">Professional Solid</h5>
+                                    <div class="color-templates-grid" id="backSolidColors">
+                                        <div class="color-template back-solid-1" data-color="#1e293b" tabindex="0" aria-label="Dark Slate"></div>
+                                        <div class="color-template back-solid-2" data-color="#374151" tabindex="0" aria-label="Gray"></div>
+                                        <div class="color-template back-solid-3" data-color="#1f2937" tabindex="0" aria-label="Dark Gray"></div>
+                                        <div class="color-template back-solid-4" data-color="#111827" tabindex="0" aria-label="Almost Black"></div>
+                                        <div class="color-template back-solid-5" data-color="#0f172a" tabindex="0" aria-label="Navy Black"></div>
+                                        <div class="color-template back-solid-6" data-color="#18181b" tabindex="0" aria-label="Charcoal"></div>
+                                        <div class="color-template back-solid-7" data-color="#27272a" tabindex="0" aria-label="Dark Charcoal"></div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="preview-card-wrapper">
-                                <h4>Back Side</h4>
-                                <div class="business-card" id="businessCardBack">
-                                    <div class="card-back-content">
-                                        <img id="previewBackLogo" src="" alt="Back Logo" style="display: none;">
-                                        <div id="previewBackQrCode"></div>
-                                        <h4 id="previewTagline">Innovative Solutions for Tomorrow</h4>
+                                    <h5 class="template-sub-subtitle">Creative Blends</h5>
+                                    <div class="color-templates-grid" id="backGradientColors">
+                                        <div class="color-template back-gradient-1" data-color="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" tabindex="0" aria-label="Purple Blue"></div>
+                                        <div class="color-template back-gradient-2" data-color="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)" tabindex="0" aria-label="Pink Red"></div>
+                                        <div class="color-template back-gradient-3" data-color="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)" tabindex="0" aria-label="Blue Cyan"></div>
+                                        <div class="color-template back-gradient-4" data-color="linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)" tabindex="0" aria-label="Green Teal"></div>
+                                        <div class="color-template back-gradient-5" data-color="linear-gradient(135deg, #fa709a 0%, #fee140 100%)" tabindex="0" aria-label="Pink Yellow"></div>
+                                        <div class="color-template back-gradient-6" data-color="linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)" tabindex="0" aria-label="Mint Pink"></div>
+                                        <div class="color-template back-gradient-7" data-color="linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)" tabindex="0" aria-label="Coral Rose"></div>
+                                        <div class="color-template back-gradient-8" data-color="linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)" tabindex="0" aria-label="Peach Orange"></div>
+                                        <div class="color-template back-gradient-9" data-color="linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)" tabindex="0" aria-label="Lavender Pink"></div>
+                                        <div class="color-template back-gradient-10" data-color="linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)" tabindex="0" aria-label="Peach Lavender"></div>
+                                        <div class="color-template back-gradient-11" data-color="linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)" tabindex="0" aria-label="Pink Blue"></div>
+                                        <div class="color-template back-gradient-12" data-color="linear-gradient(135deg, #fdcbf1 0%, #fdcbf1 50%, #e6dee9 100%)" tabindex="0" aria-label="Pink Gray"></div>
+                                        <div class="color-template back-gradient-13" data-color="linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)" tabindex="0" aria-label="Sky Blue"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-actions">
-                            <div class="export-dropdown">
-                                <button class="btn-action">📥 Download Card</button>
-                                <div class="export-options">
-                                    <a href="#" onclick="exportCard('front', 'PNG')">📱 Front Side (PNG)</a>
-                                    <a href="#" onclick="exportCard('back', 'PNG')">📱 Back Side (PNG)</a>
-                                    <a href="#" onclick="exportCard('front', 'PDF')">📄 Front Side (PDF)</a>
-                                    <a href="#" onclick="exportCard('back', 'PDF')">📄 Back Side (PDF)</a>
-                                    <a href="#" onclick="exportBothSides()">📋 Both Sides (PDF)</a>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header" tabindex="0" role="button" aria-expanded="false">
+                                <span>⚙️ Professional Settings</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="form-group">
+                                    <label>QR Code Position</label>
+                                    <div class="radio-group">
+                                        <label>
+                                            <input type="radio" name="qrPosition" value="none" checked>
+                                            <span>❌                                     <h5 class="template-sub-subtitle">Creative Blends</h5>
+                                    <div class="color-templates-grid" id="backGradientColors">
+                                        <div class="color-template back-gradient-1" data-color="radial-gradient(circle at 30% 40%, #22c55e 25%, transparent 50%), radial-gradient(circle at 70% 60%, #ef4444 25%, transparent 50%), linear-gradient(135deg, #059669, #dc2626, #ca8a04)" tabindex="0" aria-label="Green Red Gold Fusion"></div>
+                                        <div class="color-template back-gradient-2" data-color="conic-gradient(from 0deg at 50% 50%, #8b5cf6, #3b82f6, #06b6d4, #8b5cf6), radial-gradient(circle at center, transparent 20%, rgba(139, 92, 246, 0.6) 80%)" tabindex="0" aria-label="Blue Purple Spin"></div>
+                                        <div class="color-template back-gradient-3" data-color="linear-gradient(60deg, #f59e0b 0%, transparent 60%), linear-gradient(120deg, transparent 40%, #8b5cf6 100%), radial-gradient(ellipse at center, #ec4899 0%, #7c3aed 100%)" tabindex="0" aria-label="Orange Purple Pink Mix"></div>
+                                        <div class="color-template back-gradient-4" data-color="radial-gradient(ellipse at 80% 20%, #10b981 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, #3b82f6 0%, transparent 50%), linear-gradient(225deg, #059669, #1d4ed8, #0891b2)" tabindex="0" aria-label="Green Blue Teal Flow"></div>
+                                        <div class="color-template back-gradient-5" data-color="conic-gradient(from 270deg at 60% 40%, #ef4444, #f59e0b, #22c55e, #ef4444), linear-gradient(135deg, rgba(239, 68, 68, 0.8), rgba(34, 197, 94, 0.8))" tabindex="0" aria-label="Red Orange Green Wheel"></div>
+                                        <div class="color-template back-gradient-6" data-color="radial-gradient(circle at 40% 60%, #ec4899 0%, transparent 60%), radial-gradient(circle at 60% 40%, #8b5cf6 0%, transparent 60%), linear-gradient(45deg, #a855f7, #ec4899, #f97316)" tabindex="0" aria-label="Pink Purple Orange Fusion"></div>
+                                        <div class="color-template back-gradient-7" data-color="linear-gradient(45deg, #06b6d4 20%, transparent 70%), linear-gradient(135deg, transparent 30%, #22c55e 80%), radial-gradient(circle at center, #0891b2 0%, #16a34a 100%)" tabindex="0" aria-label="Cyan Green Ocean"></div>
+                                        <div class="color-template back-gradient-8" data-color="conic-gradient(from 180deg at 30% 70%, #f97316, #eab308, #22c55e, #f97316), radial-gradient(ellipse at center, transparent 40%, rgba(249, 115, 22, 0.5) 80%)" tabindex="0" aria-label="Orange Yellow Green Spin"></div>
+                                        <div class="color-template back-gradient-9" data-color="radial-gradient(ellipse at 25% 75%, #8b5cf6 0%, transparent 50%), radial-gradient(ellipse at 75% 25%, #06b6d4 0%, transparent 50%), linear-gradient(315deg, #7c3aed, #0284c7, #059669)" tabindex="0" aria-label="Purple Cyan Green Triangle"></div>
+                                        <div class="color-template back-gradient-10" data-color="linear-gradient(30deg, #ec4899 30%, transparent 70%), linear-gradient(150deg, transparent 30%, #f59e0b 70%), radial-gradient(circle at center, #db2777 0%, #d97706 100%)" tabindex="0" aria-label="Pink Orange Dual Angle"></div>
+                                        <div class="color-template back-gradient-11" data-color="conic-gradient(from 60deg at 40% 40%, #3b82f6, #22c55e, #f59e0b, #3b82f6), linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(245, 158, 11, 0.6))" tabindex="0" aria-label="Blue Green Orange Rotation"></div>
+                                        <div class="color-template back-gradient-12" data-color="radial-gradient(circle at top right, #ef4444 0%, transparent 70%), radial-gradient(circle at bottom left, #8b5cf6 0%, transparent 70%), linear-gradient(225deg, #dc2626, #7c3aed, #0891b2)" tabindex="0" aria-label="Red Purple Cyan Diagonal"></div>
+                                        <div class="color-template back-gradient-13" data-color="linear-gradient(72deg, #22c55e 25%, transparent 25%), linear-gradient(144deg, #ef4444 25%, transparent 25%), linear-gradient(72deg, transparent 75%, #3b82f6 75%), linear-gradient(144deg, transparent 75%, #f59e0b 75%), radial-gradient(ellipse at center, #059669 0%, #dc2626 50%, #1d4ed8 100%)" tabindex="0" aria-label="Multi-Geometric Rainbow"></div>
+                                    </div></span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="qrPosition" value="front">
+                                            <span>📱 Front Card</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="qrPosition" value="back">
+                                            <span>🔄 Back Card</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fontFamily">Typography Style</label>
+                                    <select id="fontFamily" class="form-control">
+                                        <option value="Inter, sans-serif">Inter - Modern & Clean</option>
+                                        <option value="Poppins, sans-serif">Poppins - Friendly & Round</option>
+                                        <option value="Playfair Display, serif">Playfair - Elegant & Classic</option>
+                                        <option value="Roboto, sans-serif">Roboto - Professional & Clear</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="template-section">
+                                    <h4 class="template-subtitle">🎨 Front Card Colors</h4>
+                                    <h5 class="template-sub-subtitle">Professional Solid</h5>
+                                    <div class="color-templates-grid" id="frontSolidColors">
+                                        <div class="color-template front-solid-1" data-color="#1e293b" tabindex="0" aria-label="Dark Slate"></div>
+                                        <div class="color-template front-solid-2" data-color="#374151" tabindex="0" aria-label="Gray"></div>
+                                        <div class="color-template front-solid-3" data-color="#1f2937" tabindex="0" aria-label="Dark Gray"></div>
+                                        <div class="color-template front-solid-4" data-color="#111827" tabindex="0" aria-label="Almost Black"></div>
+                                        <div class="color-template front-solid-5" data-color="#0f172a" tabindex="0" aria-label="Navy Black"></div>
+                                        <div class="color-template front-solid-6" data-color="#18181b" tabindex="0" aria-label="Charcoal"></div>
+                                        <div class="color-template front-solid-7" data-color="#27272a" tabindex="0" aria-label="Dark Charcoal"></div>
+                                    </div>
+                                    <h5 class="template-sub-subtitle">Creative Blends</h5>
+                                    <div class="color-templates-grid" id="frontGradientColors">
+                                        <div class="color-template front-gradient-1 active" data-color="radial-gradient(circle at 20% 50%, #667eea 20%, transparent 50%), radial-gradient(circle at 80% 20%, #764ba2 20%, transparent 50%), radial-gradient(circle at 40% 80%, #8b5cf6 20%, transparent 50%), linear-gradient(135deg, #667eea, #764ba2)" tabindex="0" aria-label="Multi-Layer Purple"></div>
+                                        <div class="color-template front-gradient-2" data-color="conic-gradient(from 180deg at 50% 50%, #22c55e 0deg, #ef4444 120deg, #3b82f6 240deg, #22c55e 360deg), radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.3) 100%)" tabindex="0" aria-label="RGB Conic Blend"></div>
+                                        <div class="color-template front-gradient-3" data-color="linear-gradient(45deg, #ff6b6b 0%, transparent 70%), linear-gradient(135deg, transparent 30%, #4ecdc4 100%), linear-gradient(225deg, #45b7d1 0%, #f9ca24 100%)" tabindex="0" aria-label="Triple Layer Mix"></div>
+                                        <div class="color-template front-gradient-4" data-color="radial-gradient(ellipse at top left, #10b981 0%, transparent 60%), radial-gradient(ellipse at bottom right, #f59e0b 0%, transparent 60%), linear-gradient(135deg, #059669, #d97706)" tabindex="0" aria-label="Green Orange Blend"></div>
+                                        <div class="color-template front-gradient-5" data-color="conic-gradient(from 45deg at 30% 70%, #fa709a, #fee140, #6366f1, #fa709a), linear-gradient(135deg, rgba(250, 112, 154, 0.8), rgba(254, 225, 64, 0.8))" tabindex="0" aria-label="Pink Yellow Blue Spin"></div>
+                                        <div class="color-template front-gradient-6" data-color="radial-gradient(circle at 25% 25%, #ff9a9e 0%, transparent 50%), radial-gradient(circle at 75% 75%, #fecfef 0%, transparent 50%), linear-gradient(45deg, #a8edea, #fed6e3)" tabindex="0" aria-label="Coral Mint Blend"></div>
+                                        <div class="color-template front-gradient-7" data-color="linear-gradient(60deg, #f093fb 0%, transparent 70%), linear-gradient(120deg, transparent 30%, #f5576c 100%), radial-gradient(circle at center, #ff6b9d 0%, #c44569 100%)" tabindex="0" aria-label="Pink Multi-Angle"></div>
+                                        <div class="color-template front-gradient-8" data-color="conic-gradient(from 0deg at 50% 50%, #ffecd2, #fcb69f, #ff8a65, #ffecd2), radial-gradient(ellipse at center, transparent 30%, rgba(255, 138, 101, 0.4) 70%)" tabindex="0" aria-label="Warm Peach Spin"></div>
+                                        <div class="color-template front-gradient-9" data-color="radial-gradient(circle at 70% 30%, #a18cd1 0%, transparent 60%), radial-gradient(circle at 30% 70%, #fbc2eb 0%, transparent 60%), linear-gradient(225deg, #8b5cf6, #ec4899, #f59e0b)" tabindex="0" aria-label="Purple Pink Orange Flow"></div>
+                                        <div class="color-template front-gradient-10" data-color="linear-gradient(135deg, #fad0c4 0%, transparent 50%), linear-gradient(45deg, transparent 50%, #ffd1ff 100%), radial-gradient(ellipse at center, #ff9a9e 0%, #fecfef 100%)" tabindex="0" aria-label="Soft Pink Layers"></div>
+                                        <div class="color-template front-gradient-11" data-color="conic-gradient(from 90deg at 40% 60%, #4facfe, #00f2fe, #43e97b, #4facfe), linear-gradient(135deg, rgba(67, 233, 123, 0.7), rgba(0, 242, 254, 0.7))" tabindex="0" aria-label="Blue Green Aqua Spin"></div>
+                                        <div class="color-template front-gradient-12" data-color="radial-gradient(ellipse at top, #667eea 0%, transparent 70%), radial-gradient(ellipse at bottom, #f093fb 0%, transparent 70%), linear-gradient(45deg, #8b5cf6, #ec4899)" tabindex="0" aria-label="Purple Pink Dual Focus"></div>
+                                        <div class="color-template front-gradient-13" data-color="linear-gradient(45deg, #ff6b6b 25%, transparent 25%), linear-gradient(135deg, #4ecdc4 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #45b7d1 75%), linear-gradient(135deg, transparent 75%, #f9ca24 75%), linear-gradient(135deg, #ff9ff3, #f368e0)" tabindex="0" aria-label="Geometric Color Mix"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="frontCustomColor">Custom Front Color</label>
+                                    <input type="color" id="frontCustomColor" class="form-control" value="#667eea">
+                                </div>
+                                <div class="form-group">
+                                    <label for="backCustomColor">Custom Back Color</label>
+                                    <input type="color" id="backCustomColor" class="form-control" value="#667eea">
                                 </div>
                             </div>
-                            <button class="btn-action" id="downloadVcardBtn">📇 Save Contact</button>
-                            <button class="btn-action" id="shareBtn">📤 Share Card</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="preview-section">
+                    <div class="preview-grid">
+                        <div class="preview-card-wrapper">
+                            <h4>🎨 Front Side</h4>
+                            <div class="business-card fade-in" id="businessCardFront" tabindex="0" aria-label="Front card preview">
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Ccircle cx='35' cy='35' r='35' fill='rgba(255,255,255,0.2)'/%3E%3Ctext x='35' y='45' text-anchor='middle' fill='white' font-size='24' font-weight='600'%3E👤%3C/text%3E%3C/svg%3E" alt="Profile" class="profile-image" id="previewImage">
+                                        <div class="card-info">
+                                            <h3 id="previewName">Sarah Johnson</h3>
+                                            <div class="title" id="previewTitle">Senior Marketing Director</div>
+                                            <div class="company" id="previewCompany">TechCorp Solutions</div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div id="previewEmail">sarah.johnson@techcorp.com</div>
+                                        <div id="previewPhone">+1 (555) 123-4567</div>
+                                        <div id="previewWebsite">www.techcorp.com</div>
+                                        <div id="previewAddress">123 Innovation Drive, Suite 100<br>Tech City, TC 12345</div>
+                                    </div>
+                                    <div id="previewQrCodeFront" aria-hidden="true"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="preview-card-wrapper">
+                            <h4>🔄 Back Side</h4>
+                            <div class="business-card fade-in" id="businessCardBack" tabindex="0" aria-label="Back card preview">
+                                <div class="card-back-content">
+                                    <img id="previewBackLogo" src="" alt="Back Logo" style="display: none;">
+                                    <img id="previewBackLogoCircle" src="" alt="Profile Circle" style="display: none;">
+                                    <div id="previewBackQrCode" aria-hidden="true"></div>
+                                    <h4 id="previewTagline">Innovating Tomorrow's Solutions</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>QEO CARD</h3>
-                    <p>Create professional digital business cards with ease. Modern, responsive, and feature-rich business card generator for professionals and businesses.</p>
-                    <p style="margin-top: 1rem;">© 2025 QEO CARD. All rights reserved.</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Features</h3>
-                    <ul class="footer-links">
-                        <li><a href="#creator">Digital Business Cards</a></li>
-                        <li><a href="#creator">QR Code Generator</a></li>
-                        <li><a href="#creator">Professional Templates</a></li>
-                        <li><a href="#creator">vCard Export</a></li>
-                        <li><a href="#creator">Responsive Design</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#help">Help Center</a></li>
-                        <li><a href="#tutorial">How to Use</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#feedback">Feedback</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                        <li><a href="#cookies">Cookie Policy</a></li>
-                        <li><a href="#dmca">DMCA</a></li>
-                    </ul>
+                    <div class="card-actions">
+                        <div class="export-dropdown">
+                            <button class="btn-action" aria-haspopup="true" aria-expanded="false">
+                                <span>📥</span>
+                                Export Cards
+                            </button>
+                            <div class="export-options" role="menu">
+                                <a href="#" onclick="exportCard('front', 'PNG')" role="menuitem">📱 Front Card (PNG)</a>
+                                <a href="#" onclick="exportCard('back', 'PNG')" role="menuitem">🔄 Back Card (PNG)</a>
+                                <a href="#" onclick="exportCard('both', 'PNG')" role="menuitem">🎴 Both Cards (PNG)</a>
+                                <a href="#" onclick="exportCard('front', 'PDF')" role="menuitem">📄 Front Card (PDF)</a>
+                                <a href="#" onclick="exportCard('back', 'PDF')" role="menuitem">📋 Back Card (PDF)</a>
+                                <a href="#" onclick="exportCard('both', 'PDF')" role="menuitem">📚 Both Cards (PDF)</a>
+                            </div>
+                        </div>
+                        <button class="btn-action" id="downloadVcardBtn" aria-describedby="vcardHelp">
+                            <span>📇</span>
+                            Save Contact
+                        </button>
+                        <div id="vcardHelp" class="sr-only">Download vCard file to import contact information</div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="footer-bottom">
-                <p>Made with ❤️ for professionals worldwide. 
-                   <a href="https://qeocard.com" target="_blank">QEO CARD</a> - 
-                   Professional Digital Business Card Creator
-                </p>
-            </div>
-        </footer>
+        </section>
     </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>QEO CARD</h3>
+                <p>Professional digital business card creator with modern design templates, QR code integration, and high-quality exports. Create stunning business cards that make lasting impressions.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Features</h3>
+                <p><a href="#creator">Dual-View Editor</a></p>
+                <p><a href="#creator">QR Code Generator</a></p>
+                <p><a href="#creator">High-Quality Export</a></p>
+                <p><a href="#creator">Professional Templates</a></p>
+                <p><a href="#creator">Mobile Responsive</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Export Formats</h3>
+                <p>PNG - High Resolution</p>
+                <p>PDF - Print Ready</p>
+                <p>vCard - Contact Import</p>
+                <p>QR Code - Digital Sharing</p>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <p><a href="mailto:support@qeocard.com">Email Support</a></p>
+                <p><a href="#creator">Quick Start Guide</a></p>
+                <p><a href="#creator">Design Tips</a></p>
+                <p><a href="#creator">Best Practices</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 QEO CARD. All rights reserved. | Professional Digital Business Card Creator</p>
+            <p>Made with ❤️ for modern professionals and businesses worldwide.</p>
+        </div>
+    </footer>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // === STATE & CONFIGURATION ===
+        // === ENHANCED STATE MANAGEMENT === 
         let cardState = {
             front: {
-                fullName: 'John Smith',
-                jobTitle: 'CEO & Founder',
-                company: 'Tech Solutions Inc.',
-                email: 'john@techsolutions.com',
-                phone: '+1 555 123 4567',
-                website: 'www.techsolutions.com',
-                address: '123 Business Ave, Tech City, TC 12345',
+                fullName: 'Sarah Johnson',
+                jobTitle: 'Senior Marketing Director',
+                company: 'TechCorp Solutions',
+                email: 'sarah.johnson@techcorp.com',
+                phone: '+1 (555) 123-4567',
+                website: 'www.techcorp.com',
+                address: '123 Innovation Drive, Suite 100\nTech City, TC 12345',
                 profileImage: null
             },
             back: {
                 backLogo: null,
-                tagline: 'Innovative Solutions for Tomorrow'
+                tagline: 'Innovating Tomorrow\'s Solutions',
+                layout: 'logo'
             },
             design: {
-                color: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                frontColor: 'radial-gradient(circle at 20% 50%, #667eea 20%, transparent 50%), radial-gradient(circle at 80% 20%, #764ba2 20%, transparent 50%), radial-gradient(circle at 40% 80%, #8b5cf6 20%, transparent 50%), linear-gradient(135deg, #667eea, #764ba2)',
+                backColor: 'radial-gradient(circle at 30% 40%, #22c55e 25%, transparent 50%), radial-gradient(circle at 70% 60%, #ef4444 25%, transparent 50%), linear-gradient(135deg, #059669, #dc2626, #ca8a04)',
                 font: 'Inter, sans-serif',
                 qrPosition: 'none'
             }
@@ -1328,7 +925,7 @@
         const businessCardFront = document.getElementById('businessCardFront');
         const businessCardBack = document.getElementById('businessCardBack');
         
-        // === UTILITY FUNCTIONS ===
+        // === ENHANCED UTILITY FUNCTIONS ===
         const debounce = (func, delay) => {
             let timeoutId;
             return (...args) => {
@@ -1337,83 +934,72 @@
             };
         };
 
-        const showNotification = (message, type = 'success') => {
-            // Create notification element
+        const showNotification = (message, type = 'info') => {
+            // Simple notification system
             const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? 'var(--secondary-green)' : 'var(--accent-orange)'};
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: var(--radius-sm);
-                z-index: 10000;
-                animation: slideIn 0.3s ease;
-                box-shadow: var(--shadow-lg);
-            `;
             notification.textContent = message;
-            
-            // Add animation styles
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 10000;
+                background: ${type === 'success' ? 'var(--secondary-green)' : 'var(--primary-purple)'};
+                color: white; padding: 1rem 1.5rem; border-radius: 8px;
+                font-weight: 600; box-shadow: var(--shadow-card);
+                animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s;
+                pointer-events: none;
             `;
-            document.head.appendChild(style);
-            
             document.body.appendChild(notification);
-            
-            // Remove after 3 seconds
-            setTimeout(() => {
-                notification.style.animation = 'slideIn 0.3s ease reverse';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                    document.head.removeChild(style);
-                }, 300);
-            }, 3000);
+            setTimeout(() => notification.remove(), 3000);
         };
 
-        // === PREVIEW UPDATE FUNCTIONS ===
+        // === ENHANCED PREVIEW FUNCTIONS ===
         function updateFrontPreview() {
             const data = cardState.front;
-            document.getElementById('previewName').textContent = data.fullName || 'Your Name';
-            document.getElementById('previewTitle').textContent = data.jobTitle || 'Your Title';
+            document.getElementById('previewName').textContent = data.fullName || 'Your Full Name';
+            document.getElementById('previewTitle').textContent = data.jobTitle || 'Your Job Title';
             document.getElementById('previewCompany').textContent = data.company || 'Your Company';
-            document.getElementById('previewEmail').textContent = data.email || 'your@email.com';
-            document.getElementById('previewPhone').textContent = data.phone || 'Your Phone';
-            document.getElementById('previewWebsite').textContent = data.website || 'yourwebsite.com';
-            document.getElementById('previewAddress').textContent = data.address || 'Your Address';
+            document.getElementById('previewEmail').textContent = data.email || 'your.email@company.com';
+            document.getElementById('previewPhone').textContent = data.phone || 'Your Phone Number';
+            document.getElementById('previewWebsite').textContent = data.website || 'www.yourwebsite.com';
+            document.getElementById('previewAddress').innerHTML = (data.address || 'Your Business Address').replace(/\n/g, '<br>');
             
-            const defaultImage = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ccircle cx='30' cy='30' r='30' fill='rgba(255,255,255,0.2)'/%3E%3Ctext x='30' y='38' text-anchor='middle' fill='white' font-size='20'%3E👤%3C/text%3E%3C/svg%3E`;
-            document.getElementById('previewImage').src = data.profileImage || defaultImage;
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = data.profileImage || `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Ccircle cx='35' cy='35' r='35' fill='rgba(255,255,255,0.2)'/%3E%3Ctext x='35' y='45' text-anchor='middle' fill='white' font-size='24' font-weight='600'%3E👤%3C/text%3E%3C/svg%3E`;
         }
 
         function updateBackPreview() {
             const data = cardState.back;
             document.getElementById('previewTagline').textContent = data.tagline || 'Your Company Tagline';
+            
             const backLogoEl = document.getElementById('previewBackLogo');
+            const backLogoCircleEl = document.getElementById('previewBackLogoCircle');
+            
+            // Hide both initially
+            backLogoEl.style.display = 'none';
+            backLogoCircleEl.style.display = 'none';
+            
             if (data.backLogo) {
-                backLogoEl.src = data.backLogo;
-                backLogoEl.style.display = 'block';
-            } else {
-                backLogoEl.style.display = 'none';
+                if (data.layout === 'profile') {
+                    backLogoCircleEl.src = data.backLogo;
+                    backLogoCircleEl.style.display = 'block';
+                } else {
+                    backLogoEl.src = data.backLogo;
+                    backLogoEl.style.display = 'block';
+                }
             }
         }
 
         function updateDesign() {
             const design = cardState.design;
-            const allCards = [businessCardFront, businessCardBack];
-            allCards.forEach(card => {
-                card.style.background = design.color;
+            businessCardFront.style.background = design.frontColor;
+            businessCardBack.style.background = design.backColor;
+            
+            [businessCardFront, businessCardBack].forEach(card => {
                 card.style.fontFamily = design.font;
             });
+            
             updateQRCode();
         }
         
-        const debouncedUpdate = debounce(updatePreview, 200);
+        const debouncedUpdate = debounce(updatePreview, 300);
 
         function updatePreview() {
             updateFrontPreview();
@@ -1421,28 +1007,31 @@
             updateDesign();
         }
 
-        // === QR CODE LOGIC ===
+        // === ENHANCED QR CODE SYSTEM ===
         function generateVCardString() {
             const data = cardState.front;
-            return [
+            const vCardLines = [
                 'BEGIN:VCARD',
                 'VERSION:3.0',
-                `N:${data.fullName};;;`,
-                `FN:${data.fullName}`,
+                `FN:${data.fullName || ''}`,
+                `N:${data.fullName || ''};;;`,
                 `TITLE:${data.jobTitle || ''}`,
                 `ORG:${data.company || ''}`,
                 `TEL;TYPE=WORK,VOICE:${data.phone || ''}`,
-                `EMAIL:${data.email || ''}`,
+                `EMAIL;TYPE=WORK:${data.email || ''}`,
                 `URL:${data.website || ''}`,
-                `ADR;TYPE=WORK:;;${(data.address || '').replace(/\n/g, ' ')}`,
+                `ADR;TYPE=WORK:;;${(data.address || '').replace(/\n/g, ' ')};;;;`,
                 'END:VCARD'
-            ].join('\n');
+            ];
+            return vCardLines.join('\n');
         }
 
         function updateQRCode() {
             const pos = cardState.design.qrPosition;
             const frontContainer = document.getElementById('previewQrCodeFront');
             const backContainer = document.getElementById('previewBackQrCode');
+            
+            // Clear existing QR codes
             frontContainer.innerHTML = '';
             backContainer.innerHTML = '';
 
@@ -1452,40 +1041,46 @@
 
             try {
                 const vCardString = generateVCardString();
+                const qrOptions = {
+                    width: pos === 'front' ? 70 : 120,
+                    height: pos === 'front' ? 70 : 120,
+                    colorDark: '#000000',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                };
+
                 if (pos === 'front') {
-                    new QRCode(frontContainer, { 
-                        text: vCardString, 
-                        width: 64, 
-                        height: 64,
-                        colorDark: '#000000',
-                        colorLight: '#ffffff'
-                    });
+                    new QRCode(frontContainer, { text: vCardString, ...qrOptions });
                 } else if (pos === 'back') {
-                    new QRCode(backContainer, { 
-                        text: vCardString, 
-                        width: 100, 
-                        height: 100,
-                        colorDark: '#000000',
-                        colorLight: '#ffffff'
-                    });
+                    new QRCode(backContainer, { text: vCardString, ...qrOptions });
                 }
-            } catch (e) {
-                console.error("QR Code generation failed:", e);
-                showNotification("QR Code generation failed", "error");
+            } catch (error) {
+                console.error("QR Code generation failed:", error);
+                showNotification('QR Code generation failed. Please check your information.', 'error');
             }
         }
 
-        // === FORM HANDLING ===
+        // === ENHANCED FORM HANDLING ===
         function handleFormInput(e) {
             const { id, value, type, name } = e.target;
-            let targetState;
+            let targetState, targetKey;
 
+            // Determine target state and key
             if (Object.keys(cardState.front).includes(id)) {
                 targetState = cardState.front;
+                targetKey = id;
             } else if (Object.keys(cardState.back).includes(id)) {
                 targetState = cardState.back;
-            } else if (Object.keys(cardState.design).includes(id) || (name && Object.keys(cardState.design).includes(name))) {
+                targetKey = id;
+            } else if (name && name === 'backLayout') {
+                targetState = cardState.back;
+                targetKey = 'layout';
+            } else if (name && name === 'qrPosition') {
                 targetState = cardState.design;
+                targetKey = name;
+            } else if (id === 'fontFamily') {
+                targetState = cardState.design;
+                targetKey = 'font';
             }
 
             if (!targetState) return;
@@ -1493,817 +1088,324 @@
             if (type === 'file') {
                 const file = e.target.files[0];
                 if (file) {
-                    // Validate file size (max 5MB)
+                    // Validate file size (5MB max)
                     if (file.size > 5 * 1024 * 1024) {
-                        showNotification("File size must be less than 5MB", "error");
-                        e.target.value = '';
-                        return;
-                    }
-                    
-                    // Validate file type
-                    if (!file.type.startsWith('image/')) {
-                        showNotification("Please select a valid image file", "error");
-                        e.target.value = '';
+                        showNotification('File size too large. Please choose a file under 5MB.', 'error');
                         return;
                     }
                     
                     const reader = new FileReader();
                     reader.onload = (event) => { 
-                        targetState[id] = event.target.result; 
+                        targetState[targetKey] = event.target.result; 
                         debouncedUpdate(); 
-                        showNotification("Image uploaded successfully!");
+                        showNotification('Image uploaded successfully!', 'success');
                     };
                     reader.onerror = () => {
-                        showNotification("Failed to read image file", "error");
+                        showNotification('Failed to upload image. Please try again.', 'error');
                     };
                     reader.readAsDataURL(file);
                 }
             } else if (type === 'radio') {
-                targetState[name] = value;
+                targetState[targetKey] = value;
+                debouncedUpdate();
             } else {
-                targetState[id] = value;
+                targetState[targetKey] = value;
+                debouncedUpdate();
             }
-            debouncedUpdate();
         }
 
-        // === EXPORT FUNCTIONS ===
+        // === ENHANCED EXPORT FUNCTIONS ===
         window.exportCard = async function(side, format) {
-            const elementId = side === 'front' ? 'businessCardFront' : 'businessCardBack';
-            const nodeToExport = document.getElementById(elementId);
-            const exportBtn = event.target.closest('button') || event.target;
+            const exportBtn = event.target;
             const originalText = exportBtn.textContent;
-            
-            if (!cardState.front.fullName || !cardState.front.email) {
-                showNotification("Please fill in Name and Email fields", "error");
-                return;
-            }
-            
-            exportBtn.textContent = 'Processing...';
-            exportBtn.classList.add('loading');
+            exportBtn.textContent = '⏳ Processing...';
+            exportBtn.disabled = true;
 
             try {
-                const canvas = await html2canvas(nodeToExport, { 
-                    backgroundColor: null, 
-                    scale: 3,
-                    useCORS: true,
-                    allowTaint: true,
-                    scrollX: 0,
-                    scrollY: 0
-                });
-                
-                if (format === 'PNG') {
-                    const link = document.createElement('a');
-                    link.download = `qeocard-${side}-${cardState.front.fullName.replace(/\s+/g, '_')}.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    showNotification(`${side.charAt(0).toUpperCase() + side.slice(1)} side downloaded successfully!`);
-                } else if (format === 'PDF') {
-                    const { jsPDF } = window.jspdf;
-                    const pdf = new jsPDF({ 
-                        orientation: 'landscape', 
-                        unit: 'mm', 
-                        format: [90, 55] 
-                    });
-                    pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 90, 55);
-                    pdf.save(`qeocard-${side}-${cardState.front.fullName.replace(/\s+/g, '_')}.pdf`);
-                    showNotification(`${side.charAt(0).toUpperCase() + side.slice(1)} side PDF downloaded!`);
+                if (side === 'both') {
+                    await exportBothCards(format);
+                } else {
+                    await exportSingleCard(side, format);
                 }
+                showNotification(`${side === 'both' ? 'Both cards' : side + ' card'} exported successfully!`, 'success');
             } catch (error) {
                 console.error(`Export failed for ${side} ${format}:`, error);
-                showNotification(`Export failed. Please try again.`, "error");
+                showNotification('Export failed. Please try again.', 'error');
             } finally {
                 exportBtn.textContent = originalText;
-                exportBtn.classList.remove('loading');
+                exportBtn.disabled = false;
+            }
+        };
+
+        async function exportSingleCard(side, format) {
+            const elementId = side === 'front' ? 'businessCardFront' : 'businessCardBack';
+            const nodeToExport = document.getElementById(elementId);
+            
+            const canvas = await html2canvas(nodeToExport, { 
+                backgroundColor: null, 
+                scale: 4, // Higher resolution
+                useCORS: true,
+                allowTaint: true,
+                logging: false,
+                width: nodeToExport.offsetWidth,
+                height: nodeToExport.offsetHeight
+            });
+
+            if (format === 'PNG') {
+                const dataUrl = canvas.toDataURL('image/png', 1.0);
+                downloadURI(dataUrl, `qeo-card-${side}-${Date.now()}.png`);
+            } else if (format === 'PDF') {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({ 
+                    orientation: 'landscape', 
+                    unit: 'mm', 
+                    format: [90, 55] 
+                });
+                
+                const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                pdf.addImage(imgData, 'JPEG', 0, 0, 90, 55);
+                pdf.save(`qeo-card-${side}-${Date.now()}.pdf`);
             }
         }
 
-        // === EXPORT BOTH SIDES ===
-        window.exportBothSides = async function() {
-            const exportBtn = event.target.closest('button') || event.target;
-            const originalText = exportBtn.textContent;
-            
-            if (!cardState.front.fullName || !cardState.front.email) {
-                showNotification("Please fill in Name and Email fields", "error");
-                return;
-            }
-            
-            exportBtn.textContent = 'Creating PDF...';
-            exportBtn.classList.add('loading');
+        async function exportBothCards(format) {
+            const frontCanvas = await html2canvas(document.getElementById('businessCardFront'), { 
+                backgroundColor: null, scale: 4, useCORS: true, allowTaint: true, logging: false 
+            });
+            const backCanvas = await html2canvas(document.getElementById('businessCardBack'), { 
+                backgroundColor: null, scale: 4, useCORS: true, allowTaint: true, logging: false 
+            });
 
-            try {
-                const frontCanvas = await html2canvas(document.getElementById('businessCardFront'), { 
-                    backgroundColor: null, scale: 3, useCORS: true, allowTaint: true 
-                });
-                const backCanvas = await html2canvas(document.getElementById('businessCardBack'), { 
-                    backgroundColor: null, scale: 3, useCORS: true, allowTaint: true 
-                });
+            if (format === 'PNG') {
+                // Create a combined canvas
+                const combinedCanvas = document.createElement('canvas');
+                const ctx = combinedCanvas.getContext('2d');
                 
+                combinedCanvas.width = frontCanvas.width;
+                combinedCanvas.height = frontCanvas.height * 2 + 40; // Add space between cards
+                
+                // Set white background
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
+                
+                // Draw both cards
+                ctx.drawImage(frontCanvas, 0, 0);
+                ctx.drawImage(backCanvas, 0, frontCanvas.height + 40);
+                
+                const dataUrl = combinedCanvas.toDataURL('image/png', 1.0);
+                downloadURI(dataUrl, `qeo-card-both-${Date.now()}.png`);
+                
+            } else if (format === 'PDF') {
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: [90, 55] });
                 
-                // Add front side
-                pdf.addImage(frontCanvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 90, 55);
+                // Add front card
+                const frontImgData = frontCanvas.toDataURL('image/jpeg', 0.95);
+                pdf.addImage(frontImgData, 'JPEG', 0, 0, 90, 55);
                 
-                // Add new page for back side
+                // Add new page for back card
                 pdf.addPage();
-                pdf.addImage(backCanvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 90, 55);
+                const backImgData = backCanvas.toDataURL('image/jpeg', 0.95);
+                pdf.addImage(backImgData, 'JPEG', 0, 0, 90, 55);
                 
-                pdf.save(`qeocard-complete-${cardState.front.fullName.replace(/\s+/g, '_')}.pdf`);
-                showNotification("Complete business card PDF downloaded!");
-            } catch (error) {
-                console.error("Export both sides failed:", error);
-                showNotification("Export failed. Please try again.", "error");
-            } finally {
-                exportBtn.textContent = originalText;
-                exportBtn.classList.remove('loading');
+                pdf.save(`qeo-card-both-${Date.now()}.pdf`);
             }
         }
 
-        // === SHARE FUNCTIONALITY ===
-        function shareCard() {
-            if (navigator.share) {
-                const shareData = {
-                    title: `${cardState.front.fullName} - Business Card`,
-                    text: `Check out my professional business card created with QEO CARD`,
-                    url: window.location.href
-                };
-                
-                navigator.share(shareData)
-                    .then(() => showNotification("Card shared successfully!"))
-                    .catch(() => showNotification("Share cancelled", "error"));
-            } else {
-                // Fallback: Copy link to clipboard
-                navigator.clipboard.writeText(window.location.href)
-                    .then(() => showNotification("Link copied to clipboard!"))
-                    .catch(() => showNotification("Failed to copy link", "error"));
-            }
+        function downloadURI(uri, name) {
+            const link = document.createElement('a');
+            link.download = name;
+            link.href = uri;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
-        // === SMOOTH SCROLLING ===
-        function smoothScrollTo(targetId) {
-            const target = document.getElementById(targetId.replace('#', ''));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
+        // === ENHANCED COLOR TEMPLATE SYSTEM ===
+        function initColorTemplates() {
+            // Front card color templates
+            document.querySelectorAll('#frontSolidColors .color-template, #frontGradientColors .color-template').forEach(template => {
+                template.addEventListener('click', function() {
+                    document.querySelectorAll('#frontSolidColors .color-template, #frontGradientColors .color-template').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    cardState.design.frontColor = this.dataset.color;
+                    updateDesign();
+                    showNotification('Front card color updated!', 'success');
+                });
 
-        // === VALIDATION ===
-        function validateForm() {
-            const requiredFields = ['fullName', 'email'];
-            const errors = [];
-            
-            requiredFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                const value = field.value.trim();
-                
-                if (!value) {
-                    errors.push(`${field.labels[0].textContent.replace(' *', '')} is required`);
-                    field.classList.add('error');
-                } else {
-                    field.classList.remove('error');
-                }
-                
-                // Email validation
-                if (fieldId === 'email' && value && !isValidEmail(value)) {
-                    errors.push('Please enter a valid email address');
-                    field.classList.add('error');
-                }
+                template.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
             });
-            
-            return errors;
+
+            // Back card color templates
+            document.querySelectorAll('#backSolidColors .color-template, #backGradientColors .color-template').forEach(template => {
+                template.addEventListener('click', function() {
+                    document.querySelectorAll('#backSolidColors .color-template, #backGradientColors .color-template').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    cardState.design.backColor = this.dataset.color;
+                    updateDesign();
+                    showNotification('Back card color updated!', 'success');
+                });
+
+                template.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
         }
 
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        // === INITIALIZATION & EVENT LISTENERS ===
+        // === ENHANCED ACCORDION SYSTEM ===
         function initAccordions() {
             document.querySelectorAll('.accordion-header').forEach(header => {
                 header.addEventListener('click', () => {
                     const item = header.parentElement;
-                    const wasActive = item.classList.contains('active');
+                    const content = header.nextElementSibling;
+                    const isActive = item.classList.contains('active');
                     
-                    // Close all accordions
-                    document.querySelectorAll('.accordion-item').forEach(accordion => {
-                        accordion.classList.remove('active');
-                        const content = accordion.querySelector('.accordion-content');
-                        if (content) content.style.maxHeight = '0px';
-                    });
+                    item.classList.toggle('active');
+                    header.setAttribute('aria-expanded', !isActive);
                     
-                    // Open clicked accordion if it wasn't active
-                    if (!wasActive) {
-                        item.classList.add('active');
-                        const content = header.nextElementSibling;
-                        if (content) content.style.maxHeight = content.scrollHeight + 'px';
+                    if (item.classList.contains('active')) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    } else {
+                        content.style.maxHeight = '0px';
+                    }
+                });
+
+                header.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        header.click();
                     }
                 });
             });
-            
-            // Open first accordion by default
+
+            // Initialize first accordion as open
             const firstAccordion = document.querySelector('.accordion-item');
             if (firstAccordion) {
                 firstAccordion.classList.add('active');
                 const firstContent = firstAccordion.querySelector('.accordion-content');
-                if (firstContent) firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
+                if (firstContent) {
+                    firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
+                }
+                firstAccordion.querySelector('.accordion-header').setAttribute('aria-expanded', 'true');
             }
         }
 
-        function initColorTemplates() {
-            document.querySelectorAll('.color-template').forEach((template, index) => {
-                // Set background for color templates with animation support
-                if (template.dataset.color) {
-                    template.style.background = template.dataset.color;
-                    
-                    // Add special effects for certain gradient types
-                    if (template.dataset.color.includes('conic-gradient')) {
-                        template.style.backgroundSize = '400% 400%';
-                        template.classList.add('conic-animation');
-                    }
-                    
-                    if (template.dataset.color.includes('radial-gradient')) {
-                        template.style.backgroundSize = '300% 300%';
-                        template.classList.add('radial-animation');
-                    }
-                    
-                    // Add shimmer effect for complex gradients
-                    if (template.dataset.color.includes('linear-gradient') && 
-                        (template.dataset.color.match(/,/g) || []).length > 2) {
-                        template.style.backgroundSize = '300% 300%';
-                        template.classList.add('complex-gradient');
-                    }
+        // === ENHANCED HEADER SCROLL EFFECT ===
+        function initHeaderScroll() {
+            const header = document.getElementById('header');
+            let scrolled = false;
+
+            window.addEventListener('scroll', () => {
+                const isScrolled = window.scrollY > 50;
+                if (isScrolled !== scrolled) {
+                    scrolled = isScrolled;
+                    header.classList.toggle('scrolled', scrolled);
                 }
-                
-                template.addEventListener('click', function() {
-                    // Remove active class from all templates
-                    document.querySelectorAll('.color-template').forEach(t => {
-                        t.classList.remove('active');
-                    });
-                    
-                    // Add active class to clicked template
-                    this.classList.add('active');
-                    
-                    // Update card state
-                    cardState.design.color = this.dataset.color;
-                    updateDesign();
-                    
-                    // Show success notification with template name
-                    const templateName = this.getAttribute('title') || 'Custom Template';
-                    showNotification(`"${templateName}" template applied successfully!`);
-                    
-                    // Track template selection
-                    trackEvent('template_selected', {
-                        template_name: templateName,
-                        template_index: index,
-                        gradient_type: this.dataset.color.includes('conic') ? 'conic' : 
-                                     this.dataset.color.includes('radial') ? 'radial' : 'linear'
-                    });
-                    
-                    // Add visual feedback
-                    this.style.transform = 'scale(1.15)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 200);
-                });
-                
-                // Add keyboard support
-                template.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        template.click();
-                    }
-                });
-                
-                // Add tooltip on hover
-                template.addEventListener('mouseenter', function() {
-                    if (this.getAttribute('title')) {
-                        const tooltip = document.createElement('div');
-                        tooltip.textContent = this.getAttribute('title');
-                        tooltip.className = 'template-tooltip';
-                        tooltip.style.cssText = `
-                            position: absolute;
-                            bottom: -35px;
-                            left: 50%;
-                            transform: translateX(-50%);
-                            background: var(--dark-card);
-                            color: var(--text-light);
-                            padding: 4px 8px;
-                            border-radius: 4px;
-                            font-size: 12px;
-                            white-space: nowrap;
-                            z-index: 1000;
-                            border: 1px solid var(--border-light);
-                            box-shadow: var(--shadow-md);
-                            pointer-events: none;
-                            opacity: 0;
-                            transition: opacity 0.2s ease;
-                        `;
-                        this.appendChild(tooltip);
-                        
-                        // Fade in tooltip
-                        setTimeout(() => {
-                            tooltip.style.opacity = '1';
-                        }, 100);
-                    }
-                });
-                
-                template.addEventListener('mouseleave', function() {
-                    const tooltip = this.querySelector('.template-tooltip');
-                    if (tooltip) {
-                        tooltip.style.opacity = '0';
-                        setTimeout(() => {
-                            if (tooltip.parentNode) {
-                                tooltip.parentNode.removeChild(tooltip);
-                            }
-                        }, 200);
-                    }
-                });
             });
         }
 
-        // === FORM EVENT LISTENERS ===
-        document.getElementById('cardForm').addEventListener('input', handleFormInput);
-        document.getElementById('cardForm').addEventListener('change', handleFormInput);
+        // === ENHANCED INITIALIZATION ===
+        function init() {
+            // Set up form handling
+            document.getElementById('cardForm').addEventListener('input', handleFormInput);
+            document.getElementById('cardForm').addEventListener('change', handleFormInput);
 
-        // Custom color picker
-        document.getElementById('customColor').addEventListener('input', (e) => {
-            document.querySelectorAll('.color-template').forEach(t => t.classList.remove('active'));
-            cardState.design.color = e.target.value;
-            updateDesign();
-        });
+            // Custom color inputs
+            document.getElementById('frontCustomColor').addEventListener('input', (e) => {
+                document.querySelectorAll('#frontSolidColors .color-template, #frontGradientColors .color-template').forEach(t => t.classList.remove('active'));
+                cardState.design.frontColor = e.target.value;
+                updateDesign();
+            });
 
-        // Download vCard button
-        document.getElementById('downloadVcardBtn').addEventListener('click', () => {
-            const errors = validateForm();
-            if (errors.length > 0) {
-                showNotification(errors[0], "error");
-                return;
-            }
-            
-            try {
+            document.getElementById('backCustomColor').addEventListener('input', (e) => {
+                document.querySelectorAll('#backSolidColors .color-template, #backGradientColors .color-template').forEach(t => t.classList.remove('active'));
+                cardState.design.backColor = e.target.value;
+                updateDesign();
+            });
+
+            // vCard download
+            document.getElementById('downloadVcardBtn').addEventListener('click', () => {
+                if (!cardState.front.fullName || !cardState.front.email) {
+                    showNotification('Please enter at least your name and email to create a vCard.', 'error');
+                    return;
+                }
+                
                 const vCardString = generateVCardString();
                 const blob = new Blob([vCardString], { type: "text/vcard;charset=utf-8" });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = `${cardState.front.fullName.replace(/\s+/g, '_')}_contact.vcf`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                showNotification("Contact file downloaded successfully!");
-            } catch (error) {
-                console.error("vCard generation failed:", error);
-                showNotification("Failed to generate contact file", "error");
-            }
-        });
-
-        // Share button
-        document.getElementById('shareBtn').addEventListener('click', shareCard);
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                smoothScrollTo(targetId);
+                const filename = `${cardState.front.fullName.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_contact.vcf`;
+                downloadURI(URL.createObjectURL(blob), filename);
+                showNotification('Contact saved successfully!', 'success');
             });
-        });
 
-        // Form validation on input
-        document.querySelectorAll('.form-control[required]').forEach(field => {
-            field.addEventListener('blur', () => {
-                if (!field.value.trim()) {
-                    field.classList.add('error');
-                } else {
-                    field.classList.remove('error');
-                }
-            });
-            
-            field.addEventListener('input', () => {
-                if (field.classList.contains('error') && field.value.trim()) {
-                    field.classList.remove('error');
-                }
-            });
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + S to download front side
-            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-                e.preventDefault();
-                exportCard('front', 'PNG');
-            }
-            
-            // Ctrl/Cmd + Shift + S to download both sides
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'S') {
-                e.preventDefault();
-                exportBothSides();
-            }
-        });
-
-        // Auto-save to localStorage (optional feature)
-        function autoSave() {
-            try {
-                if (typeof(Storage) !== "undefined" && localStorage) {
-                    localStorage.setItem('qeocard_draft', JSON.stringify(cardState));
-                }
-            } catch (error) {
-                console.warn('Auto-save failed:', error);
-            }
-        }
-
-        function loadDraft() {
-            try {
-                if (typeof(Storage) !== "undefined" && localStorage) {
-                    const draft = localStorage.getItem('qeocard_draft');
-                    if (draft) {
-                        const savedState = JSON.parse(draft);
-                        
-                        // Merge with default state to ensure all properties exist
-                        cardState = {
-                            front: { ...cardState.front, ...savedState.front },
-                            back: { ...cardState.back, ...savedState.back },
-                            design: { ...cardState.design, ...savedState.design }
-                        };
-                        
-                        // Update form fields
-                        Object.keys(cardState.front).forEach(key => {
-                            const field = document.getElementById(key);
-                            if (field && typeof cardState.front[key] === 'string') {
-                                field.value = cardState.front[key];
-                            }
-                        });
-                        
-                        Object.keys(cardState.back).forEach(key => {
-                            const field = document.getElementById(key);
-                            if (field && typeof cardState.back[key] === 'string') {
-                                field.value = cardState.back[key];
-                            }
-                        });
-                        
-                        // Update design fields
-                        const fontField = document.getElementById('fontFamily');
-                        if (fontField) fontField.value = cardState.design.font;
-                        
-                        const qrRadio = document.querySelector(`input[name="qrPosition"][value="${cardState.design.qrPosition}"]`);
-                        if (qrRadio) qrRadio.checked = true;
-                        
-                        showNotification("Draft loaded successfully!");
-                    }
-                }
-            } catch (error) {
-                console.warn('Failed to load draft:', error);
-            }
-        }
-
-        // Debounced auto-save
-        const debouncedAutoSave = debounce(autoSave, 2000);
-
-        // Add auto-save to form changes
-        document.getElementById('cardForm').addEventListener('input', debouncedAutoSave);
-
-        // === PERFORMANCE OPTIMIZATIONS ===
-        
-        // Lazy load images
-        function lazyLoadImages() {
-            const images = document.querySelectorAll('img[data-src]');
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.removeAttribute('data-src');
-                        observer.unobserve(img);
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 });
             });
-            
-            images.forEach(img => imageObserver.observe(img));
-        }
 
-        // Preload critical resources
-        function preloadResources() {
-            const criticalFonts = [
-                'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap'
-            ];
-            
-            criticalFonts.forEach(url => {
-                const link = document.createElement('link');
-                link.rel = 'preload';
-                link.href = url;
-                link.as = 'style';
-                document.head.appendChild(link);
-            });
-        }
-
-        // === ANALYTICS & TRACKING (if needed) ===
-        function trackEvent(eventName, properties = {}) {
-            // Placeholder for analytics tracking
-            console.log('Event:', eventName, properties);
-            
-            // Example: Google Analytics 4
-            if (typeof gtag !== 'undefined') {
-                gtag('event', eventName, properties);
-            }
-            
-            // Example: Custom analytics
-            if (window.customAnalytics) {
-                window.customAnalytics.track(eventName, properties);
-            }
-        }
-
-        // Track user interactions
-        document.querySelectorAll('.btn-action').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                trackEvent('button_click', {
-                    button_text: e.target.textContent.trim(),
-                    section: 'card_actions'
-                });
-            });
-        });
-
-        // Track template selections
-        document.querySelectorAll('.color-template').forEach(template => {
-            template.addEventListener('click', () => {
-                trackEvent('template_selected', {
-                    template_color: template.dataset.color,
-                    template_title: template.title || 'custom'
-                });
-            });
-        });
-
-        // === ACCESSIBILITY ENHANCEMENTS ===
-        
-        // Add ARIA labels and descriptions
-        function enhanceAccessibility() {
-            // Add live region for announcements
-            const liveRegion = document.createElement('div');
-            liveRegion.setAttribute('aria-live', 'polite');
-            liveRegion.setAttribute('aria-atomic', 'true');
-            liveRegion.className = 'sr-only';
-            liveRegion.id = 'live-region';
-            document.body.appendChild(liveRegion);
-            
-            // Announce preview updates
-            const originalUpdate = updatePreview;
-            window.updatePreview = function() {
-                originalUpdate();
-                const announcement = `Business card preview updated for ${cardState.front.fullName || 'unnamed contact'}`;
-                document.getElementById('live-region').textContent = announcement;
-            };
-            
-            // Add keyboard navigation for color templates
-            document.querySelectorAll('.color-template').forEach((template, index) => {
-                template.setAttribute('tabindex', '0');
-                template.setAttribute('role', 'button');
-                template.setAttribute('aria-label', `Color template ${index + 1}: ${template.title || 'Custom color'}`);
-                
-                template.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        template.click();
-                    }
-                });
-            });
-        }
-
-        // === ERROR HANDLING ===
-        window.addEventListener('error', (e) => {
-            console.error('Global error:', e.error);
-            showNotification("An unexpected error occurred. Please refresh the page.", "error");
-        });
-
-        window.addEventListener('unhandledrejection', (e) => {
-            console.error('Unhandled promise rejection:', e.reason);
-            showNotification("An error occurred while processing your request.", "error");
-        });
-
-        // === INITIALIZATION ===
-        try {
             // Initialize components
             initAccordions();
             initColorTemplates();
-            enhanceAccessibility();
-            lazyLoadImages();
-            preloadResources();
-            
-            // Load any saved draft
-            loadDraft();
+            initHeaderScroll();
             
             // Initial preview update
             updatePreview();
             
-            // Track page load
-            trackEvent('page_loaded', {
-                user_agent: navigator.userAgent,
-                screen_size: `${screen.width}x${screen.height}`,
-                viewport_size: `${window.innerWidth}x${window.innerHeight}`
-            });
+            // Set initial active states
+            document.querySelector('#frontGradientColors .front-gradient-1').classList.add('active');
+            document.querySelector('#backGradientColors .back-gradient-1').classList.add('active');
             
-            console.log('QEO CARD initialized successfully');
-            
-        } catch (error) {
-            console.error('Initialization error:', error);
-            showNotification("Failed to initialize the application. Please refresh the page.", "error");
+            showNotification('QEO CARD loaded successfully! Start creating your professional business card.', 'success');
         }
+
+        // === ENHANCED ERROR HANDLING ===
+        window.addEventListener('error', (e) => {
+            console.error('Global error:', e.error);
+            showNotification('An unexpected error occurred. Please refresh the page.', 'error');
+        });
+
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Unhandled promise rejection:', e.reason);
+            showNotification('An unexpected error occurred. Please try again.', 'error');
+        });
+
+        // Start the application
+        init();
     });
 
-    // === SERVICE WORKER REGISTRATION (for PWA capabilities) ===
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-                .then((registration) => {
-                    console.log('SW registered: ', registration);
-                })
-                .catch((registrationError) => {
-                    console.log('SW registration failed: ', registrationError);
-                });
-        });
-    }
-
-    // === CUSTOM CSS ANIMATIONS ===
+    // === CSS ANIMATIONS ===
     const style = document.createElement('style');
     style.textContent = `
-        .form-control.error {
-            border-color: #ef4444 !important;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
-        
-        .card-preview-animation {
-            animation: cardFlip 0.6s ease-in-out;
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
         }
-        
-        @keyframes cardFlip {
-            0% { transform: rotateY(0deg); }
-            50% { transform: rotateY(90deg); }
-            100% { transform: rotateY(0deg); }
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        .slide-in-animation {
-            animation: slideInFromBottom 0.5s ease-out;
-        }
-        
-        @keyframes slideInFromBottom {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        /* Loading spinner for buttons */
-        .btn-action.loading::after {
-            content: '';
-            width: 16px;
-            height: 16px;
-            border: 2px solid transparent;
-            border-top: 2px solid currentColor;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            margin-left: 8px;
-        }
-        
-        /* Hover effects for better UX */
-        .feature-card {
-            transform-origin: center;
-        }
-        
-        .business-card {
-            transform-origin: center;
-        }
-        
-        /* Focus styles for better accessibility */
-        .form-control:focus {
-            outline: 2px solid var(--primary-purple);
-            outline-offset: 2px;
-        }
-        
-        .btn:focus {
-            outline: 2px solid var(--primary-purple);
-            outline-offset: 2px;
-        }
-        
-        /* Mobile touch targets */
-        @media (max-width: 768px) {
-            .btn,
-            .btn-action,
-            .color-template {
-                min-height: 44px;
-                min-width: 44px;
-            }
-            
-            .color-templates-grid {
-                grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
-                gap: 0.8rem;
-            }
-        }
-        
-        /* Advanced gradient animations */
-        .conic-animation {
-            animation: rotateGradient 8s ease-in-out infinite;
-        }
-        
-        .radial-animation {
-            animation: pulseGradient 6s ease-in-out infinite;
-        }
-        
-        .complex-gradient {
-            animation: shiftGradient 10s ease-in-out infinite;
-        }
-        
-        @keyframes rotateGradient {
-            0%, 100% { background-position: 0% 50%; }
-            25% { background-position: 100% 50%; }
-            50% { background-position: 100% 100%; }
-            75% { background-position: 0% 100%; }
-        }
-        
-        @keyframes pulseGradient {
-            0%, 100% { background-size: 200% 200%; }
-            50% { background-size: 300% 300%; }
-        }
-        
-        @keyframes shiftGradient {
-            0%, 100% { background-position: 0% 0%; }
-            33% { background-position: 100% 0%; }
-            66% { background-position: 100% 100%; }
-        }
-        
-        /* Template hover effects */
-        .color-template:hover {
-            animation-play-state: paused;
-        }
-        
-        .color-template.active {
-            animation-play-state: paused;
-        }
-        
-        /* Tooltip styles */
-        .template-tooltip {
-            animation: tooltipFadeIn 0.2s ease;
-        }
-        
-        @keyframes tooltipFadeIn {
-            from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-        
-        /* Print optimization */
-        @media print {
-            .business-card {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
+        .form-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            display: block;
         }
     `;
     document.head.appendChild(style);
-
-    </script>
-
-    <!-- Schema.org structured data for SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "QEO CARD - Professional Digital Business Card Creator",
-        "description": "Create stunning, interactive digital business cards with live dual-view preview. Professional templates, QR codes, vCard export, and responsive design.",
-        "url": "https://yourwebsite.com",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web Browser",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        "creator": {
-            "@type": "Organization",
-            "name": "QEO CARD"
-        },
-        "featureList": [
-            "Digital Business Card Creation",
-            "QR Code Generation",
-            "Professional Templates",
-            "vCard Export",
-            "Responsive Design",
-            "Live Preview",
-            "Multiple Export Formats"
-        ]
-    }
     </script>
 </body>
 </html>
