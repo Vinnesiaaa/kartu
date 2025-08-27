@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QEO CARD - Multi-Profile Interactive Business Card Creator</title>
-    <meta name="description" content="Design and share stunning, multi-profile digital business cards. Switch between work and personal profiles seamlessly.">
-    <meta name="keywords" content="multi-profile business card, pwa business card, installable web app, digital business card, vcard generator, shareable contact card">
+    <title>QEO CARD - Professional Interactive Business Card Creator</title>
+    <meta name="description" content="Design and share stunning, installable digital business cards. Mobile-friendly, print-ready, and perfect for modern professionals.">
+    <meta name="keywords" content="pwa business card, installable web app, digital business card, vcard generator, shareable contact card">
     <meta name="theme-color" content="#1a1a1a"/>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="images/icon-192x192.png">
@@ -26,6 +26,7 @@
             --primary-purple: #6366f1; --secondary-green: #10b981; --dark-bg: #0f0f0f;
             --dark-card: #1a1a1a; --text-light: #f8fafc; --text-gray: #94a3b8;
             --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --danger-red: #ef4444;
         }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -74,23 +75,25 @@
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; padding: 0 1.25rem; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-light); }
-        .form-control { width: 100%; padding: 0.75rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-light); font-size: 1rem; }
+        .form-control { width: 100%; padding: 0.75rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: var(--text-light); font-size: 1rem; transition: border-color 0.3s; }
         .form-control:focus { outline: none; border-color: var(--primary-purple); }
+        .form-control.invalid { border-color: var(--danger-red); }
         .form-row { display: flex; flex-wrap: wrap; gap: 1rem; }
         .form-row > .form-group { flex: 1; min-width: 150px; }
         .radio-group label { display: inline-flex; align-items: center; margin-right: 1rem; }
         
         /* === PROFILE MANAGEMENT UI === */
         #profileManagement { padding: 1.25rem; }
-        .profile-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
-        .profile-tab { background: var(--dark-bg); color: var(--text-gray); padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .profile-tabs-container { overflow-x: auto; }
+        .profile-tabs { display: flex; flex-wrap: nowrap; gap: 0.5rem; margin-bottom: 1rem; padding-bottom: 5px; }
+        .profile-tab { background: var(--dark-bg); color: var(--text-gray); padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; }
         .profile-tab.active { background: var(--primary-purple); color: white; border-color: var(--primary-purple); }
         .profile-tab-actions button { background: none; border: none; color: var(--text-gray); cursor: pointer; margin-left: 0.5rem; }
         #addProfileBtn { background: none; border: 1px dashed var(--text-gray); color: var(--text-gray); }
         
         /* === TEMPLATE SELECTION (COLORS & LAYOUTS) === */
-        .color-templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 0.75rem; }
-        .color-template { height: 50px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s ease; position: relative; }
+        .color-templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 1rem; }
+        .color-template { height: 44px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s ease; position: relative; }
         .color-template.active { border-color: var(--primary-purple); transform: scale(1.05); }
         .template-subtitle { margin-top: 1.5rem; margin-bottom: 1rem; font-weight: 600; color: var(--text-gray); }
         
@@ -215,7 +218,9 @@
                     <form id="cardForm" onsubmit="return false;">
                         <div id="profileManagement">
                             <label>Profile Management</label>
-                            <div id="profileTabs" class="profile-tabs"></div>
+                            <div class="profile-tabs-container">
+                                <div id="profileTabs" class="profile-tabs"></div>
+                            </div>
                         </div>
 
                         <!-- Front Side Form -->
@@ -480,7 +485,7 @@
             initEditorEventListeners();
             promptToRestoreSession();
             renderProfileTabs();
-            populateFormFromState(); // Ensure form is populated on start
+            populateFormFromState();
         }
 
         // === VIEWER MODE FUNCTIONS ===
@@ -931,6 +936,10 @@
         }
 
         function deleteProfile(index) {
+            if (cardState.profiles.length <= 1) {
+                showToast("You cannot delete the last profile.", true);
+                return;
+            }
             if (confirm(`Are you sure you want to delete the "${cardState.profiles[index].profileName}" profile?`)) {
                 cardState.profiles.splice(index, 1);
                 if (cardState.activeProfileIndex >= index) {
