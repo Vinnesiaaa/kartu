@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QEO CARD: Create professional digital business cards with customizable templates and QR codes.">
+    <meta name="keywords" content="business card maker, vCard templates, QR code generator, digital networking tool">
+    <meta name="author" content="QEO CARD">
+    <meta property="og:title" content="QEO CARD - Professional VCard Creator">
+    <meta property="og:description" content="Design premium digital business cards with customizable templates and QR codes.">
+    <meta property="og:url" content="https://qeo.qzz.io">
+    <meta property="og:type" content="website">
+    <meta http-equiv="cache-control" content="public, max-age=31536000">
+    <link rel="canonical" href="https://qeo.qzz.io">
+    <title>QEO CARD - Professional Digital Business Card Creator</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.9.2/lib/qr-code-styling.js" defer></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+</head>
+<body>
+    <header role="banner">
+        <div class="logo-container">
+            <img src="logo.png" alt="QEO CARD Logo" class="logo" loading="lazy">
+            <h1>QEO CARD</h1>
+        </div>
+        <button id="dark-mode-toggle" aria-label="Toggle Dark Mode">🌙</button>
+    </header>
+    <main role="main">
+        <section class="form-section" aria-label="VCard creation form">
+            <h2>Create Your Professional VCard</h2>
+            <div class="tabs" role="tablist">
+                <button class="tab-btn active" data-tab="personal" role="tab" aria-selected="true">Personal Info</button>
+                <button class="tab-btn" data-tab="qr" role="tab" aria-selected="false">QR Customization</button>
+                <button class="tab-btn" data-tab="style" role="tab" aria-selected="false">Card Styling</button>
+            </div>
+            <form id="card-form" role="form">
+                <div id="personal-tab" class="tab-content active" role="tabpanel">
+                    <label for="name" title="Your full name (required)">Full Name:</label>
+                    <input type="text" id="name" placeholder="John Doe" required aria-required="true">
+                    
+                    <label for="job-title" title="Your professional title">Job Title:</label>
+                    <input type="text" id="job-title" placeholder="Software Engineer">
+                    
+                    <label for="company" title="Your company name">Company:</label>
+                    <input type="text" id="company" placeholder="Tech Corp">
+                    
+                    <label for="email" title="Your email address">Email:</label>
+                    <input type="email" id="email" placeholder="john@example.com">
+                    
+                    <label for="phone" title="Your phone number">Phone:</label>
+                    <input type="tel" id="phone" placeholder="+1 (123) 456-7890">
+                    
+                    <label for="website" title="Your website URL">Website:</label>
+                    <input type="url" id="website" placeholder="https://example.com">
+                    
+                    <label for="address" title="Your address">Address:</label>
+                    <textarea id="address" placeholder="123 Street, City, Country"></textarea>
+                    
+                    <label for="linkedin" title="LinkedIn profile URL">LinkedIn:</label>
+                    <input type="url" id="linkedin" placeholder="https://linkedin.com/in/johndoe">
+                    
+                    <label for="twitter" title="Twitter/X profile URL">Twitter/X:</label>
+                    <input type="url" id="twitter" placeholder="https://x.com/johndoe">
+                    
+                    <label for="instagram" title="Instagram profile URL">Instagram:</label>
+                    <input type="url" id="instagram" placeholder="https://instagram.com/johndoe">
+                    
+                    <label for="profile-photo" title="Upload your photo or logo (required)">Upload Profile Photo/Logo (or drag & drop):</label>
+                    <div id="photo-drop-zone" class="drop-zone" aria-label="Drop zone for profile photo">
+                        <input type="file" id="profile-photo" accept="image/*" aria-hidden="true">
+                        <p>Drag file here or click to upload</p>
+                    </div>
+                    <img id="photo-preview" alt="Profile Preview" style="display:none; max-width:100px;" loading="lazy">
+                </div>
+                <div id="qr-tab" class="tab-content" role="tabpanel">
+                    <label for="qr-url" title="Custom QR content or leave for auto vCard">QR Content (default: vCard contact):</label>
+                    <input type="text" id="qr-url" placeholder="Custom URL or leave blank for vCard">
+                    
+                    <label for="qr-logo" title="Upload logo for QR center">Upload QR Logo (optional, or drag & drop):</label>
+                    <div id="qr-logo-drop-zone" class="drop-zone" aria-label="Drop zone for QR logo">
+                        <input type="file" id="qr-logo" accept="image/*" aria-hidden="true">
+                        <p>Drag file here or click to upload</p>
+                    </div>
+                    <img id="qr-logo-preview" alt="QR Logo Preview" style="display:none; max-width:50px;" loading="lazy">
+                    
+                    <label for="qr-color" title="QR foreground color">QR Foreground Color:</label>
+                    <input type="color" id="qr-color" value="#ffffff">
+                    
+                    <label for="qr-bg-color" title="QR background color">QR Background Color:</label>
+                    <input type="color" id="qr-bg-color" value="#000000">
+                    
+                    <label for="qr-style" title="QR dot style">QR Dot Style:</label>
+                    <select id="qr-style">
+                        <option value="square">Square</option>
+                        <option value="dots">Dots</option>
+                        <option value="rounded">Rounded</option>
+                        <option value="extra-rounded">Extra Rounded</option>
+                        <option value="classy">Classy</option>
+                        <option value="classy-rounded">Classy Rounded</option>
+                    </select>
+                    
+                    <label for="qr-error-correction" title="QR error correction level">QR Error Correction Level:</label>
+                    <select id="qr-error-correction">
+                        <option value="L">Low</option>
+                        <option value="M">Medium</option>
+                        <option value="Q">Quartile</option>
+                        <option value="H">High</option>
+                    </select>
+                </div>
+                <div id="style-tab" class="tab-content" role="tabpanel">
+                    <label for="card-template" title="Choose a VCard template">VCard Template:</label>
+                    <select id="card-template">
+                        <option value="classic">Classic (Formal Horizontal)</option>
+                        <option value="modern">Modern (Vertical Minimalist)</option>
+                        <option value="creative">Creative (Asymmetric Grid)</option>
+                        <option value="executive">Executive (Centered Premium)</option>
+                    </select>
+                    
+                    <label for="card-bg-color" title="Card background color">Card Background Color:</label>
+                    <input type="color" id="card-bg-color" value="#2c2c2c">
+                    
+                    <label for="card-text-color" title="Card text color">Card Text Color:</label>
+                    <input type="color" id="card-text-color" value="#e0e0e0">
+                    
+                    <label for="card-font" title="Card font family">Card Font Family:</label>
+                    <select id="card-font">
+                        <option value="Roboto">Roboto</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Open Sans">Open Sans</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="generate-btn" aria-label="Generate VCard">Generate VCard</button>
+                    <button type="button" id="reset-btn" aria-label="Reset form">Reset</button>
+                </div>
+            </form>
+            <div id="loading-spinner" class="spinner" style="display:none;" aria-live="polite">Loading...</div>
+            <p id="error-message" style="color: #f44336; display: none;" role="alert"></p>
+        </section>
+        <section class="preview-section" id="preview-section" style="display:none;" aria-label="VCard preview">
+            <h2>VCard Preview</h2>
+            <div id="card-preview" class="card">
+                <img id="card-photo" alt="Profile Photo" loading="lazy">
+                <div class="card-info">
+                    <h3 id="card-name"></h3>
+                    <p id="card-job-title"></p>
+                    <p id="card-company"></p>
+                    <p id="card-email"></p>
+                    <p id="card-phone"></p>
+                    <p id="card-website"></p>
+                    <p id="card-address"></p>
+                    <div class="social-links">
+                        <a id="card-linkedin" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"></a>
+                        <a id="card-twitter" href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter/X"></a>
+                        <a id="card-instagram" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"></a>
+                    </div>
+                </div>
+                <div id="qr-code" class="qr-container" aria-label="QR code for contact"></div>
+            </div>
+            <div class="actions">
+                <button id="print-btn" aria-label="Print VCard">Print</button>
+                <button id="download-png-btn" aria-label="Download VCard as PNG">Download PNG</button>
+                <button id="download-pdf-btn" aria-label="Download VCard as PDF">Download PDF</button>
+                <button id="download-vcf-btn" aria-label="Download VCard file">Download vCard</button>
+                <button id="share-btn" aria-label="Share VCard">Share Card</button>
+            </div>
+            <p id="share-link" style="display:none;" aria-live="polite">Shareable Link: <a href="#" id="share-url"></a></p>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <p>&copy; 2025 QEO CARD. All rights reserved.</p>
+    </footer>
+    <script src="script.js" defer></script>
+</body>
+</html>
