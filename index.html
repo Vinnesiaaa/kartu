@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QEO CARD - Professional Interactive Business Card Creator</title>
-    <meta name="description" content="Design and share stunning, installable digital business cards. Mobile-friendly, print-ready, and perfect for modern professionals.">
-    <meta name="keywords" content="pwa business card, installable web app, digital business card, vcard generator, shareable contact card">
+    <title>QEO CARD - Multi-Profile Interactive Business Card Creator</title>
+    <meta name="description" content="Design and share stunning, multi-profile digital business cards. Switch between work and personal profiles seamlessly.">
+    <meta name="keywords" content="multi-profile business card, pwa business card, installable web app, digital business card, vcard generator, shareable contact card">
     <meta name="theme-color" content="#1a1a1a"/>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="images/icon-192x192.png">
@@ -35,7 +35,7 @@
 
         /* === VIEWER MODE STYLES === */
         #viewerMode { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--dark-bg); z-index: 5000; overflow-y: auto; padding: 2rem 1rem; }
-        .viewer-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; gap: 2rem; }
+        .viewer-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; gap: 1.5rem; }
         #interactiveCardContainer .business-card { box-shadow: 0 25px 80px rgba(0,0,0,0.5); transform: scale(1.05); }
         .viewer-actions { display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 450px; }
         .btn-viewer-primary { background: var(--gradient-primary); color: white; padding: 1rem; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; text-align: center; }
@@ -45,6 +45,9 @@
         .viewer-footer { font-size: 0.8rem; color: var(--text-gray); margin-top: 2rem; }
         .viewer-footer a { color: var(--primary-purple); text-decoration: none; }
         #interactiveCardContainer a { color: inherit; text-decoration: none; }
+        .profile-switcher { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+        .profile-switcher button { background: var(--dark-card); color: var(--text-gray); padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; cursor: pointer; transition: all 0.3s ease; }
+        .profile-switcher button.active { background: var(--primary-purple); color: white; border-color: var(--primary-purple); }
         
         /* === HEADER & HERO === */
         .header { position: fixed; top: 0; width: 100%; background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 1000; }
@@ -76,6 +79,14 @@
         .form-row { display: flex; flex-wrap: wrap; gap: 1rem; }
         .form-row > .form-group { flex: 1; min-width: 150px; }
         .radio-group label { display: inline-flex; align-items: center; margin-right: 1rem; }
+        
+        /* === PROFILE MANAGEMENT UI === */
+        #profileManagement { padding: 1.25rem; }
+        .profile-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+        .profile-tab { background: var(--dark-bg); color: var(--text-gray); padding: 0.5rem 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .profile-tab.active { background: var(--primary-purple); color: white; border-color: var(--primary-purple); }
+        .profile-tab-actions button { background: none; border: none; color: var(--text-gray); cursor: pointer; margin-left: 0.5rem; }
+        #addProfileBtn { background: none; border: 1px dashed var(--text-gray); color: var(--text-gray); }
         
         /* === TEMPLATE SELECTION (COLORS & LAYOUTS) === */
         .color-templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 0.75rem; }
@@ -190,7 +201,7 @@
         <section id="home" class="hero">
             <div class="hero-content">
                 <h1>The Modern Digital Business Card</h1>
-                <p>Create and share stunning, interactive business cards that make a lasting impression. Mobile-friendly, print-ready, and perfect for modern professionals.</p>
+                <p>Create and share stunning, interactive business cards that make a lasting impression. Now with multi-profile support for any context.</p>
                 <div class="hero-buttons">
                     <a href="#creator" class="btn-primary">Start Creating Now</a>
                 </div>
@@ -202,6 +213,11 @@
             <div class="creator-container">
                 <div class="form-section">
                     <form id="cardForm" onsubmit="return false;">
+                        <div id="profileManagement">
+                            <label>Profile Management</label>
+                            <div id="profileTabs" class="profile-tabs"></div>
+                        </div>
+
                         <!-- Front Side Form -->
                         <div id="formFront">
                             <div class="accordion-item active">
@@ -394,6 +410,7 @@
             <div id="interactiveCardContainer">
                 <!-- The interactive card will be rendered here by JS -->
             </div>
+            <div id="viewerProfileSwitcher" class="profile-switcher"></div>
             <div class="viewer-actions">
                 <a href="#" id="viewerSaveContactBtn" class="btn-viewer-primary">📇 Save to Contacts</a>
                 <button id="viewerShowQrBtn" class="btn-viewer-secondary">📱 Show QR Code</button>
@@ -421,17 +438,24 @@
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // === STATE & CONFIGURATION ===
-        const defaultCardData = {
+        const defaultProfileData = {
+            profileName: 'Work',
             fullName: 'Jane Doe', jobTitle: 'CEO & Founder', company: 'Innovate Inc.', email: 'jane@innovate.com', phone: '+1 555 123 4567', website: 'https://www.innovate.com', address: '123 Innovation Drive, Tech City',
             linkedin: '', instagram: '', github: '', profileImage: null, 
+            backLogo: null, tagline: 'Making Ideas Happen', cta: 'Scan to save contact'
+        };
+
+        const defaultCardDesign = {
             color: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-            font: 'Inter, sans-serif', textAlign: 'left', layoutTemplate: 'klasik-kiri', cardSize: 'default',
-            qrPosition: 'none', tagline: 'Making Ideas Happen', backLogo: null, cta: 'Scan to save contact', backPattern: 'none'
+            font: 'Inter, sans-serif', layoutTemplate: 'klasik-kiri', cardSize: 'default',
+            qrPosition: 'none', backPattern: 'none'
         };
         
         let cardState = {
             isFront: true,
-            data: JSON.parse(JSON.stringify(defaultCardData))
+            activeProfileIndex: 0,
+            profiles: [JSON.parse(JSON.stringify(defaultProfileData))],
+            design: JSON.parse(JSON.stringify(defaultCardDesign))
         };
 
         const businessCard = document.getElementById('businessCard');
@@ -455,6 +479,7 @@
             initAccordions();
             initEditorEventListeners();
             promptToRestoreSession();
+            renderProfileTabs();
             updatePreview();
         }
 
@@ -465,27 +490,61 @@
             try {
                 const encodedData = window.location.hash.substring(6);
                 const decodedData = decodeURIComponent(escape(atob(encodedData)));
-                const viewData = JSON.parse(decodedData);
-                renderInteractiveCard(viewData);
+                const viewState = JSON.parse(decodedData);
+                renderInteractiveCard(viewState);
             } catch (e) {
                 document.getElementById('interactiveCardContainer').innerHTML = '<h2 style="text-align:center;">Sorry, this card could not be loaded.</h2>';
                 console.error("Error parsing share link:", e);
             }
         }
 
-        function renderInteractiveCard(data) {
+        function renderInteractiveCard(state) {
             const container = document.getElementById('interactiveCardContainer');
+            const switcher = document.getElementById('viewerProfileSwitcher');
             const cardClone = businessCard.cloneNode(true);
             cardClone.removeAttribute('id');
             container.innerHTML = '';
+            switcher.innerHTML = '';
             container.appendChild(cardClone);
             
-            cardState.data = data;
-            updatePreviewOnNode(cardClone);
+            let activeViewerProfileIndex = 0;
+
+            const renderViewerProfile = (index) => {
+                activeViewerProfileIndex = index;
+                const profileData = state.profiles[index];
+                const designData = state.design;
+
+                // Update switcher UI
+                Array.from(switcher.children).forEach((btn, i) => btn.classList.toggle('active', i === index));
+
+                // Update card content
+                updatePreviewOnNode(cardClone, profileData, designData);
+
+                // Make elements interactive
+                const emailEl = cardClone.querySelector('#previewEmail');
+                const phoneEl = cardClone.querySelector('#previewPhone');
+                const websiteEl = cardClone.querySelector('#previewWebsite');
+                const addressEl = cardClone.querySelector('#previewAddress');
+                emailEl.innerHTML = profileData.email ? `<a href="mailto:${profileData.email}">${profileData.email}</a>` : '';
+                phoneEl.innerHTML = profileData.phone ? `<a href="tel:${profileData.phone}">${profileData.phone}</a>` : '';
+                websiteEl.innerHTML = profileData.website ? `<a href="${!profileData.website.startsWith('http') ? '//' : ''}${profileData.website}" target="_blank" rel="noopener noreferrer">${profileData.website}</a>` : '';
+                addressEl.innerHTML = profileData.address ? `<a href="https://maps.google.com/?q=${encodeURIComponent(profileData.address)}" target="_blank" rel="noopener noreferrer">${profileData.address}</a>` : '';
+            };
+
+            if (state.profiles.length > 1) {
+                state.profiles.forEach((profile, index) => {
+                    const btn = document.createElement('button');
+                    btn.textContent = profile.profileName;
+                    btn.onclick = () => renderViewerProfile(index);
+                    switcher.appendChild(btn);
+                });
+            }
             
-            document.getElementById('viewerSaveContactBtn').onclick = () => downloadVCard(data);
+            renderViewerProfile(0);
+            
+            document.getElementById('viewerSaveContactBtn').onclick = () => downloadVCard(state.profiles[activeViewerProfileIndex]);
             document.getElementById('viewerShowQrBtn').onclick = () => {
-                const vCardString = generateVCardString(data);
+                const vCardString = generateVCardString(state.profiles[activeViewerProfileIndex]);
                 const modal = document.createElement('div');
                 modal.className = 'modal';
                 modal.style.cssText = 'display:flex; align-items:center; justify-content:center;';
@@ -506,9 +565,9 @@
             ].join('\n');
         }
 
-        function downloadVCard(data = cardState.data) {
+        function downloadVCard(data = cardState.profiles[cardState.activeProfileIndex]) {
             if (!data.fullName && !data.email) {
-                showToast('Full Name and Email are required.', true);
+                showToast('Full Name and Email are required for the active profile.', true);
                 return;
             }
             const vCardString = generateVCardString(data);
@@ -535,77 +594,75 @@
 
         // === EDITOR-ONLY FUNCTIONS ===
         function updatePreview() {
-            updatePreviewOnNode(businessCard);
+            const activeProfile = cardState.profiles[cardState.activeProfileIndex];
+            if (!activeProfile) return;
+            updatePreviewOnNode(businessCard, activeProfile, cardState.design);
             autoSaveSession();
         }
 
-        function updatePreviewOnNode(node) {
-            const data = cardState.data;
-            node.style.fontFamily = data.font;
-            node.querySelectorAll('.card-face').forEach(face => face.style.background = data.color);
+        function updatePreviewOnNode(node, profileData, designData) {
+            node.style.fontFamily = designData.font;
+            node.querySelectorAll('.card-face').forEach(face => face.style.background = designData.color);
             node.querySelectorAll('.card-background-pattern').forEach(p => {
                 p.className = 'card-background-pattern';
-                if (data.backPattern !== 'none') p.classList.add(`pattern-${data.backPattern}`);
+                if (designData.backPattern !== 'none') p.classList.add(`pattern-${designData.backPattern}`);
             });
 
-            const nameEl = node.querySelector('#previewName');
-            const titleEl = node.querySelector('#previewTitle');
-            const companyEl = node.querySelector('#previewCompany');
-            const emailEl = node.querySelector('#previewEmail');
-            const phoneEl = node.querySelector('#previewPhone');
-            const websiteEl = node.querySelector('#previewWebsite');
-            const addressEl = node.querySelector('#previewAddress');
-            const imageEl = node.querySelector('#previewImage');
-
-            nameEl.textContent = data.fullName || 'Full Name';
-            titleEl.textContent = data.jobTitle || 'Job Title';
-            companyEl.textContent = data.company || 'Company';
-            emailEl.textContent = data.email || 'your@email.com';
-            phoneEl.textContent = data.phone || 'Your Phone Number';
-            websiteEl.textContent = data.website || 'yourwebsite.com';
-            addressEl.textContent = data.address || 'Your Address';
-            imageEl.src = data.profileImage || `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='30' fill='rgba(255,255,255,0.2)'/><text x='30' y='38' text-anchor='middle' fill='white' font-size='20'>👤</text></svg>`;
+            node.querySelector('#previewName').textContent = profileData.fullName || 'Full Name';
+            node.querySelector('#previewTitle').textContent = profileData.jobTitle || 'Job Title';
+            node.querySelector('#previewCompany').textContent = profileData.company || 'Company';
+            node.querySelector('#previewEmail').textContent = profileData.email || 'your@email.com';
+            node.querySelector('#previewPhone').textContent = profileData.phone || 'Your Phone Number';
+            node.querySelector('#previewWebsite').textContent = profileData.website || 'yourwebsite.com';
+            node.querySelector('#previewAddress').textContent = profileData.address || 'Your Address';
+            node.querySelector('#previewImage').src = profileData.profileImage || `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='30' fill='rgba(255,255,255,0.2)'/><text x='30' y='38' text-anchor='middle' fill='white' font-size='20'>👤</text></svg>`;
             
-            node.querySelector('#previewTagline').textContent = data.tagline || '';
-            node.querySelector('#previewCta').textContent = data.cta || '';
+            node.querySelector('#previewTagline').textContent = profileData.tagline || '';
+            node.querySelector('#previewCta').textContent = profileData.cta || '';
             const backLogo = node.querySelector('#previewBackLogo');
-            backLogo.style.display = data.backLogo ? 'block' : 'none';
-            if(data.backLogo) backLogo.src = data.backLogo;
+            backLogo.style.display = profileData.backLogo ? 'block' : 'none';
+            if(profileData.backLogo) backLogo.src = profileData.backLogo;
             
-            updateSocialIconsOnNode(node);
-            updateCardLayoutOnNode(node);
-            updateQRCodeOnNode(node);
+            updateSocialIconsOnNode(node, profileData);
+            updateCardLayoutOnNode(node, designData);
+            updateQRCodeOnNode(node, profileData, designData);
         }
         
         function handleFormInput(e) {
             const { id, value, type, checked, name } = e.target;
-            if (type === 'file') {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => { cardState.data[id] = event.target.result; updatePreview(); };
-                    reader.readAsDataURL(file);
+            const activeProfile = cardState.profiles[cardState.activeProfileIndex];
+            const design = cardState.design;
+
+            if (Object.keys(activeProfile).includes(id) || Object.keys(activeProfile).includes(name)) {
+                 if (type === 'file') {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => { activeProfile[id] = event.target.result; updatePreview(); };
+                        reader.readAsDataURL(file);
+                    }
+                } else {
+                    activeProfile[id] = value;
                 }
-            } else if (type === 'radio') {
-                cardState.data[name] = value;
-            } else if (type === 'checkbox') {
-                cardState.data[id] = checked;
-            } else {
-                cardState.data[id] = value;
+            } else if (Object.keys(design).includes(id) || Object.keys(design).includes(name)) {
+                if (type === 'radio') {
+                    design[name] = value;
+                } else {
+                    design[id] = value;
+                }
             }
             updatePreview();
         }
 
-        function updateCardLayout() { updateCardLayoutOnNode(businessCard); }
-        function updateCardLayoutOnNode(node) {
-            const layout = cardState.data.layoutTemplate || 'klasik-kiri';
-            node.dataset.layout = layout;
-            updateCardSizeClassOnNode(node);
+        function updateCardLayout() { updateCardLayoutOnNode(businessCard, cardState.design); }
+        function updateCardLayoutOnNode(node, designData) {
+            node.dataset.layout = designData.layoutTemplate || 'klasik-kiri';
+            updateCardSizeClassOnNode(node, designData);
         }
         
-        function updateCardSizeClass() { updateCardSizeClassOnNode(businessCard); }
-        function updateCardSizeClassOnNode(node) {
-            const size = cardState.data.cardSize || 'default';
+        function updateCardSizeClass() { updateCardSizeClassOnNode(businessCard, cardState.design); }
+        function updateCardSizeClassOnNode(node, designData) {
+            const size = designData.cardSize || 'default';
             const isFlipped = node.classList.contains('flipped');
             node.className = 'business-card';
             node.classList.add(`size-${size}`);
@@ -636,11 +693,11 @@
             document.getElementById('formBack').style.display = cardState.isFront ? 'none' : 'block';
         }
 
-        function updateSocialIcons() { updateSocialIconsOnNode(businessCard); }
-        function updateSocialIconsOnNode(node) {
+        function updateSocialIcons() { updateSocialIconsOnNode(businessCard, cardState.profiles[cardState.activeProfileIndex]); }
+        function updateSocialIconsOnNode(node, profileData) {
             const container = node.querySelector('#socialIconsPreview');
             container.innerHTML = '';
-            const socialLinks = { linkedin: cardState.data.linkedin, instagram: cardState.data.instagram, github: cardState.data.github };
+            const socialLinks = { linkedin: profileData.linkedin, instagram: profileData.instagram, github: profileData.github };
             for (const [key, value] of Object.entries(socialLinks)) {
                 if (value) {
                     const link = document.createElement('a');
@@ -651,23 +708,23 @@
             }
         }
 
-        function updateQRCode() { updateQRCodeOnNode(businessCard); }
-        function updateQRCodeOnNode(node) {
+        function updateQRCode() { updateQRCodeOnNode(businessCard, cardState.profiles[cardState.activeProfileIndex], cardState.design); }
+        function updateQRCodeOnNode(node, profileData, designData) {
             const qrFrontContainer = node.querySelector('#previewQrCodeFront');
             const qrBackContainer = node.querySelector('#previewBackQrCode');
             qrFrontContainer.innerHTML = '';
             qrBackContainer.innerHTML = '';
             
-            const vCardString = generateVCardString(cardState.data);
+            const vCardString = generateVCardString(profileData);
             
-            if (cardState.data.qrPosition === 'front') {
+            if (designData.qrPosition === 'front') {
                 qrFrontContainer.style.display = 'block';
                 new QRCode(qrFrontContainer, { text: vCardString, width: 64, height: 64 });
             } else {
                 qrFrontContainer.style.display = 'none';
             }
             
-            if (cardState.data.qrPosition === 'back') {
+            if (designData.qrPosition === 'back') {
                 qrBackContainer.style.display = 'block';
                 new QRCode(qrBackContainer, { text: vCardString, width: 100, height: 100 });
             } else {
@@ -686,19 +743,19 @@
                     pdf.addImage(canvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, 0, 90, 55);
                     pdf.save('qeo-card.pdf');
                 } else if (format === 'SVG') {
-                    const svg = `<svg width="1050" height="600" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="${cardState.data.color}"/></svg>`;
+                    const svg = `<svg width="1050" height="600" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="${cardState.design.color}"/></svg>`;
                     downloadURI('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg), 'qeo-card.svg');
                 }
             });
         }
 
-        function autoSaveSession() { localStorage.setItem('qeoCardSession', JSON.stringify(cardState.data)); }
+        function autoSaveSession() { localStorage.setItem('qeoCardSession', JSON.stringify(cardState)); }
         
         function promptToRestoreSession() {
             const savedSession = localStorage.getItem('qeoCardSession');
             if (savedSession) {
                 if (confirm('Restore previous session?')) {
-                    cardState.data = JSON.parse(savedSession);
+                    cardState = JSON.parse(savedSession);
                     populateFormFromState();
                     showToast('Session restored!');
                 }
@@ -707,7 +764,7 @@
 
         function saveDesign() {
             let designs = JSON.parse(localStorage.getItem('qeoCardDesigns')) || [];
-            designs.push(JSON.parse(JSON.stringify(cardState.data)));
+            designs.push(JSON.parse(JSON.stringify(cardState)));
             localStorage.setItem('qeoCardDesigns', JSON.stringify(designs));
             showToast('Design saved!');
         }
@@ -716,10 +773,11 @@
             const designs = JSON.parse(localStorage.getItem('qeoCardDesigns')) || [];
             const list = document.getElementById('savedDesignsList');
             list.innerHTML = designs.length === 0 ? '<li>No saved designs.</li>' : '';
-            designs.forEach((design, index) => {
+            designs.forEach((designState, index) => {
                 const li = document.createElement('li');
                 li.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding:0.5rem; margin-bottom:0.5rem; background:rgba(255,255,255,0.05); border-radius:4px;';
-                li.innerHTML = `<span>${design.fullName || `Design ${index + 1}`}</span><div>
+                const firstProfileName = designState.profiles[0] ? designState.profiles[0].fullName : `Design ${index + 1}`;
+                li.innerHTML = `<span>${firstProfileName}</span><div>
                     <button class="btn-action" onclick="loadDesign(${index})">Load</button>
                     <button class="btn-action" style="background: #ef4444" onclick="deleteDesign(${index})">Delete</button>
                 </div>`;
@@ -731,8 +789,9 @@
         window.loadDesign = function(index) {
             const designs = JSON.parse(localStorage.getItem('qeoCardDesigns')) || [];
             if (designs[index]) {
-                cardState.data = designs[index];
+                cardState = designs[index];
                 populateFormFromState();
+                renderProfileTabs();
                 document.getElementById('savedDesignsModal').style.display = 'none';
                 showToast('Design loaded!');
             }
@@ -749,7 +808,7 @@
         
         function getShareLink() {
             try {
-                const dataStr = JSON.stringify(cardState.data);
+                const dataStr = JSON.stringify(cardState);
                 const encodedData = btoa(unescape(encodeURIComponent(dataStr)));
                 const url = `${window.location.origin}${window.location.pathname}#view=${encodedData}`;
                 const textArea = document.createElement("textarea");
@@ -775,24 +834,34 @@
         }
         
         function resetDesign() {
-            if (confirm('Are you sure you want to reset the design to default?')) {
-                cardState.data = JSON.parse(JSON.stringify(defaultCardData));
+            if (confirm('Are you sure you want to reset the design to default? All profiles will be removed.')) {
+                cardState = {
+                    isFront: true,
+                    activeProfileIndex: 0,
+                    profiles: [JSON.parse(JSON.stringify(defaultProfileData))],
+                    design: JSON.parse(JSON.stringify(defaultCardDesign))
+                };
                 populateFormFromState();
+                renderProfileTabs();
                 showToast('Design has been reset.');
             }
         }
 
         function populateFormFromState() {
-            for (const [key, value] of Object.entries(cardState.data)) {
+            const activeProfile = cardState.profiles[cardState.activeProfileIndex];
+            const design = cardState.design;
+            
+            for (const [key, value] of Object.entries(activeProfile)) {
+                const el = document.getElementById(key);
+                if (el && el.type !== 'file') el.value = value;
+            }
+            for (const [key, value] of Object.entries(design)) {
                 const el = document.getElementById(key);
                 if (el) {
-                    if (el.type === 'checkbox') {
-                        el.checked = value;
-                    } else if (el.type === 'radio') {
+                    if (el.type === 'radio') {
                         const radio = document.querySelector(`input[name="${el.name}"][value="${value}"]`);
                         if(radio) radio.checked = true;
-                    }
-                    else if (el.type !== 'file') {
+                    } else if (el.type !== 'file') {
                         el.value = value;
                     }
                 } else {
@@ -800,9 +869,79 @@
                     if(radio) radio.checked = true;
                 }
             }
-            document.querySelectorAll('.layout-option').forEach(o => o.classList.toggle('active', o.dataset.layout === cardState.data.layoutTemplate));
-            document.querySelectorAll('.color-template').forEach(t => t.classList.toggle('active', t.dataset.color === cardState.data.color));
+            
+            document.querySelectorAll('.layout-option').forEach(o => o.classList.toggle('active', o.dataset.layout === design.layoutTemplate));
+            document.querySelectorAll('.color-template').forEach(t => t.classList.toggle('active', t.dataset.color === design.color));
             updatePreview();
+        }
+
+        function renderProfileTabs() {
+            const tabsContainer = document.getElementById('profileTabs');
+            tabsContainer.innerHTML = '';
+            cardState.profiles.forEach((profile, index) => {
+                const tab = document.createElement('div');
+                tab.className = 'profile-tab';
+                tab.textContent = profile.profileName;
+                tab.onclick = () => switchProfile(index);
+                if (index === cardState.activeProfileIndex) {
+                    tab.classList.add('active');
+                    const actions = document.createElement('span');
+                    actions.className = 'profile-tab-actions';
+                    const renameBtn = document.createElement('button');
+                    renameBtn.textContent = '✏️';
+                    renameBtn.onclick = (e) => { e.stopPropagation(); renameProfile(index); };
+                    actions.appendChild(renameBtn);
+                    
+                    if (cardState.profiles.length > 1) {
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.textContent = '🗑️';
+                        deleteBtn.onclick = (e) => { e.stopPropagation(); deleteProfile(index); };
+                        actions.appendChild(deleteBtn);
+                    }
+                    tab.appendChild(actions);
+                }
+                tabsContainer.appendChild(tab);
+            });
+            const addBtn = document.createElement('button');
+            addBtn.textContent = '+ Add Profile';
+            addBtn.id = 'addProfileBtn';
+            addBtn.className = 'profile-tab';
+            addBtn.onclick = addProfile;
+            tabsContainer.appendChild(addBtn);
+        }
+
+        function switchProfile(index) {
+            cardState.activeProfileIndex = index;
+            renderProfileTabs();
+            populateFormFromState();
+        }
+
+        function addProfile() {
+            const newProfileName = prompt("Enter new profile name:", `Profile ${cardState.profiles.length + 1}`);
+            if (newProfileName) {
+                const newProfile = JSON.parse(JSON.stringify(defaultProfileData));
+                newProfile.profileName = newProfileName;
+                cardState.profiles.push(newProfile);
+                switchProfile(cardState.profiles.length - 1);
+            }
+        }
+
+        function renameProfile(index) {
+            const newName = prompt("Enter new name for this profile:", cardState.profiles[index].profileName);
+            if (newName) {
+                cardState.profiles[index].profileName = newName;
+                renderProfileTabs();
+            }
+        }
+
+        function deleteProfile(index) {
+            if (confirm(`Are you sure you want to delete the "${cardState.profiles[index].profileName}" profile?`)) {
+                cardState.profiles.splice(index, 1);
+                if (cardState.activeProfileIndex >= index) {
+                    cardState.activeProfileIndex = Math.max(0, cardState.activeProfileIndex - 1);
+                }
+                switchProfile(cardState.activeProfileIndex);
+            }
         }
 
         function initEditorEventListeners() {
@@ -815,7 +954,7 @@
             document.getElementById('resetBtn').addEventListener('click', resetDesign);
             
             document.getElementById('cardSize').addEventListener('change', (e) => {
-                cardState.data.cardSize = e.target.value;
+                cardState.design.cardSize = e.target.value;
                 updateCardLayout();
             });
 
@@ -823,7 +962,7 @@
                 option.addEventListener('click', () => {
                     document.querySelectorAll('.layout-option').forEach(o => o.classList.remove('active'));
                     option.classList.add('active');
-                    cardState.data.layoutTemplate = option.dataset.layout;
+                    cardState.design.layoutTemplate = option.dataset.layout;
                     updatePreview();
                 });
             });
@@ -832,14 +971,14 @@
                 template.addEventListener('click', function() {
                     document.querySelectorAll('.color-template').forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
-                    cardState.data.color = this.dataset.color;
+                    cardState.design.color = this.dataset.color;
                     updatePreview();
                 });
                 if(template.dataset.color) template.style.background = template.dataset.color;
             });
 
              document.getElementById('customColor').addEventListener('input', (e) => {
-                cardState.data.color = e.target.value;
+                cardState.design.color = e.target.value;
                 document.querySelectorAll('.color-template').forEach(t => t.classList.remove('active'));
                 updatePreview();
             });
